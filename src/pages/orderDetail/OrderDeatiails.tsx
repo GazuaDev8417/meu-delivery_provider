@@ -25,6 +25,7 @@ const OrderDeatails:FC = ()=>{
         restaurant:'', 
         client:'',
         address:'',
+        description:''
     })
     const [client, setClient] = useState<User>({
         id:'',
@@ -94,13 +95,12 @@ const OrderDeatails:FC = ()=>{
                     src={order.photoUrl}
                     alt="Imagem do restaurante"
                     className="image"/>                
-                <div className="desc">
-                    <p>
+                <div className="desc">{order.description}</div>
+                    <p className="orderData">
                         <b>Pedido feito em:</b> {order.moment}<br />
                         <b>Endereço para entrega:</b> {order.address} <br /><br />
                         <div className="client" onClick={() => userById(order.client)} >Cliente</div>
                     </p>
-                </div>
             </div>
         </Container>
         </>

@@ -29,10 +29,19 @@ export const Container = styled.div`
     }
 
     .desc{
-        background-color: lightgray;
+        margin: 15px 30px;
+        border: .2rem dotted;
+        box-shadow: 1px 1px 3px;
         padding: 10px;
         border-radius: 10px;
-        margin: 30px 20px;
+    }
+
+    .orderData{
+        background-color: lightgray;
+        box-shadow: 1px 1px 3px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 20px;
     }
 
     .rest-name{
