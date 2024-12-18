@@ -12,6 +12,11 @@ export const Container = styled.div`
         margin: 10vh 0 5vh;
     }
 
+    .header{
+        margin-top: -8vh;
+        width: 100%;
+    }
+
     form{
         display: flex;
         flex-direction: column;

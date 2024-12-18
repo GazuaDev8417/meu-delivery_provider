@@ -3,9 +3,11 @@ import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
-import { Link, useNavigate } from "react-router-dom"
+import { IoIosArrowBack } from "react-icons/io"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import { Container } from "./styled"
-//import Modal from "../../components/Modal"
+import { Restaurant } from "../../types/types"
+
 
 
 interface FormData{
@@ -16,23 +18,56 @@ interface FormData{
 
 const Login:FC = ()=>{
     const navigate = useNavigate()
+    const location = useLocation()
+    const checkLocation = location.state ? location.state as { isUserValidation?:boolean } : null
     const [showPass, setShowPass] = useState<boolean>(false)
-    //const [showModal, setShowModal] = useState<boolean>(false)
+    const [isUserValidation, setIsUserValidation] = useState<boolean>(checkLocation !== null ? true : false)
+    const token = localStorage.getItem('token')
+    const clientData = localStorage.getItem('clientData')
+    const [currentRestaurant, setCurrentRestaurant] = useState<Restaurant>({
+        address:'',
+        category:'',
+        deliveryTime:0,
+        description:'',
+        id:'',
+        logourl:'',
+        name:'',
+        shipping:0,
+    })
     const [form, setForm] = useState<FormData>({
-        cnpj:' ',
+        cnpj:'',
         password:''
     })
 
 
+    const getRestaurant = ()=>{
+        axios.get(`${BASE_URL}/restaurant`, {
+            headers: { Authorization: token }
+        }).then(res => {
+            setCurrentRestaurant(res.data)
+        }).catch(e => alert(e.response.data))
+    }
+    
 
-    useEffect(()=>{
-        const token = localStorage.getItem('token')
-        
-        if(token){
-            navigate('/ifuture_provider/orders')
+    /* useEffect(()=>{
+        if(location.state){
+            const { isUserValidation } = location.state as {
+                isUserValidation?: boolean
+            }
+
+            if(isUserValidation !== undefined) setIsUserValidation(isUserValidation)
         }
+    }, [location.state]) */
+
+    useEffect(()=>{        
+        if(token && !isUserValidation){
+            navigate('/ifuture_provider/orders')
+        }else if(token && clientData){
+            getRestaurant()
+        }     
     }, [])
 
+    
     /* useEffect(()=>{
         const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
@@ -56,30 +91,53 @@ const Login:FC = ()=>{
 
         setForm({ ...form, [name]: newValue })
     }
+
     
     const login = (e:FormEvent<HTMLFormElement>):void=>{
         e.preventDefault()
 
-        const body = {
-            cnpj: form.cnpj.replace(/\D/g, ""),
-            password: form.password
-        }
+        if(!isUserValidation){
+            const body = {
+                cnpj: form.cnpj.replace(/\D/g, ""),
+                password: form.password,
+                isUserValidation
+            }
 
-        axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
-            localStorage.setItem('token', res.data)
-            navigate('/ifuture_provider/orders')
-        }).catch(e=>{
-            alert(e.response.data)
-        })
+            axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
+                localStorage.setItem('token', res.data)
+                navigate('/ifuture_provider/orders')
+            }).catch(e=>{
+                alert(e.response.data)
+            })
+        }else{
+            const body = {
+                cnpj: form.cnpj.replace(/\D/g, ""),
+                password: form.password,
+                isUserValidation
+            }
+
+            axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
+                if(currentRestaurant.id !== res.data){
+                    return alert('Credenciais inválidas!')
+                }else{
+                    setIsUserValidation(false)
+                    navigate('/ifuture_provider/client_data')
+                }
+            }).catch(e=>{
+                alert(e.response.data)
+            })
+        }
     }
     
     return(
         <Container>
-            <img  
-                src={ifutureLogo}
-                alt="imagem"/>
-            <div className="title">Login para provedores</div>
-            {/* { showModal && <Modal setShowModal={setShowModal}/> } */}
+            {isUserValidation && (
+                <div className="header">
+                    <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>
+                </div>
+            )}
+            <img src={ifutureLogo} alt="imagem"/>
+            <div className="title">{ isUserValidation ? 'Insira suas  redências para validação' : 'Login para provedores' }</div>
             <form onSubmit={login}>
                 <input
                     type="text"

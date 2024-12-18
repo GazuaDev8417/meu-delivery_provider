@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
 import { AiOutlineLogout, AiOutlineShoppingCart } from 'react-icons/ai'
 import { MdDelete } from "react-icons/md";
@@ -14,7 +14,8 @@ import { Order, User } from '../../types/types'
 
 const ClientData = ()=>{
     const navigate = useNavigate()
-    const user = useLocation().state as User
+    const token = localStorage.getItem('token')
+    const user:User = JSON.parse(localStorage.getItem('clientData') ?? '{}')
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
 
@@ -25,7 +26,6 @@ const ClientData = ()=>{
     }, [])
 
     useEffect(()=>{
-        const token = localStorage.getItem('token')
 
         if(!token){
             navigate('/ifuture_react')

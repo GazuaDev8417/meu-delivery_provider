@@ -63,7 +63,9 @@ const OrderDeatails:FC = ()=>{
 
         axios.get(`${BASE_URL}/user/${id}`, headers).then(res=>{
             setClient(res.data)
-            navigate('/ifuture_provider/client_data', { state: res.data } )
+            localStorage.setItem('clientData', JSON.stringify(res.data))
+            navigate('/ifuture_provider', { state: { isUserValidation: true } } )
+            //navigate('/ifuture_provider/client_data', { state: res.data } )
         }).catch(e => alert(e.response.data))
     }
 
