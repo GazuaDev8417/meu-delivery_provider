@@ -36,7 +36,7 @@ const Login:FC = ()=>{
     })
     const [form, setForm] = useState<FormData>({
         cnpj:'',
-        password:''
+        password:'Alfaromeo*021'
     })
 
 

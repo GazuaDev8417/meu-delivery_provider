@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AiOutlineLogout } from 'react-icons/ai'
+import { BsFillPersonFill } from 'react-icons/bs'
 import { GoHistory } from "react-icons/go"
 import { Container } from './styled'
 import { BASE_URL } from '../../constants/url'
@@ -88,7 +88,7 @@ const Orders = ()=>{
         <>
         <Header
             rightIcon={
-                <AiOutlineLogout className="header-icon" onClick={logout} />
+                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_provider/profile')} />
             }
             leftIcon={
                 <GoHistory className="header-icon" onClick={()=> navigate('/ifuture_provider/orders_history')}/>

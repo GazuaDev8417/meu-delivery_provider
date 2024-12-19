@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
-import { AiOutlineLogout, AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineLogout } from 'react-icons/ai'
+import { MdFeed } from "react-icons/md"
 import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
 import { Container } from './styled'
@@ -51,7 +52,7 @@ const ClientData = ()=>{
 
         if(decide){
             localStorage.clear()
-            navigate('/ifuture_react')
+            navigate('/ifuture_provider')
         }
     }
 
@@ -96,7 +97,7 @@ const ClientData = ()=>{
                 <AiOutlineLogout className="header-icon" onClick={logout} />
             }
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')}/>
+                <MdFeed className="header-icon" onClick={()=> navigate('/ifuture_provider/orders')}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AiOutlineLogout } from 'react-icons/ai'
+import { BsFillPersonFill } from 'react-icons/bs'
 import { IoIosArrowBack } from "react-icons/io"
 import { Container } from './styled'
 import { BASE_URL } from '../../constants/url'
@@ -91,7 +92,7 @@ const OrderHistory = ()=>{
         <>
         <Header
             rightIcon={
-                <AiOutlineLogout className="header-icon" onClick={logout} />
+                <BsFillPersonFill className="header-icon" onClick={() => navigate('/ifuture_provider/profile')} />
             }
             leftIcon={
                 <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>

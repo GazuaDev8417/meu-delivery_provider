@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import { IoIosArrowBack } from "react-icons/io"
 import { AiOutlineLogout } from 'react-icons/ai'
+import { BsFillPersonFill } from 'react-icons/bs'
 import { Order, User } from "../../types/types"
 import { Container } from './styled'
 import axios from "axios"
@@ -88,7 +89,7 @@ const OrderDeatails:FC = ()=>{
                 <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>
             }
             rightIcon={
-                <AiOutlineLogout className="header-icon" onClick={logout} />
+                <BsFillPersonFill className="header-icon" onClick={() => navigate('/ifuture_provider/profile')} />
             }/>
         <Container>
             <div className="card">

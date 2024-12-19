@@ -4,8 +4,6 @@ import { createGlobalStyle } from "styled-components"
 
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap');
-    
   *{
     margin: 0;
     padding: 0;
@@ -23,10 +21,6 @@ const GlobalStyle = createGlobalStyle`
   html::-webkit-scrollbar-thumb{
     background: #b11717;
     border-radius: 5rem;
-  }
-
-  body{
-    font-family: "Roboto", sans-serif;
   }
 
   input{
