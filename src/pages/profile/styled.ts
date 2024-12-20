@@ -4,9 +4,8 @@ import styled from 'styled-components'
 
 
 
-
 export const Container = styled.div`
-    margin-top: 25vh;
+    margin: 25vh 0 3vh;
     h1{
         text-align: center;
         margin: 5vh 0 3vh;
@@ -36,6 +35,44 @@ export const Container = styled.div`
         text-align: center;
         font-size: 1.5rem;
         margin: 20px 10px 10px;
+    }
+
+    .menuTitle-container{
+        display: flex;
+        align-items: center;
+        width: 90%;
+        justify-content: space-between;
+    }
+
+    .icon-container{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background-color: gray;
+        padding: 7px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 4px;
+        cursor: pointer;
+        transition: .5s;
+    }
+
+    .icon-container:active{
+        transform: scale(.8);
+    }
+
+    .icon-container:hover .text{
+        color: whitesmoke;
+        transition: .5s;
+    }
+
+    .icon-container:hover .icon{
+        color: #dc2b2b;
+        transition: .5s;
+    }
+        
+    .icon{
+        font-size: 20px;
+        cursor: pointer;
     }
 
     .products{

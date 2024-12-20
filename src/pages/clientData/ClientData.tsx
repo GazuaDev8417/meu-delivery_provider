@@ -107,15 +107,15 @@ const ClientData = ()=>{
                     {user.email} <br />
                     {/* {maskedCPF(user.cpf)} */}
                 </div>
-                <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
+                {/* <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} /> */}
             </div>
             <div className="address-section">
                 <div>Endereço cadastrado: <br />
                     {user.street} Nº {user.number}, {user.neighbourhood}, {user.city} - {user.state}
                 </div>
-                <MdEdit className="icon" onClick={()=> {
+                {/* <MdEdit className="icon" onClick={()=> {
                     navigate('/ifuture_react/address')
-                }}/>
+                }}/> */}
             </div>
             <div className="addressAndName">
                 <div className="rest-name"></div>
