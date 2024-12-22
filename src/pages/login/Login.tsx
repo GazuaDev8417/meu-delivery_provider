@@ -4,7 +4,7 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { IoIosArrowBack } from "react-icons/io"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Link, useNavigate, useLocation, useRevalidator } from "react-router-dom"
 import { Container } from "./styled"
 import { Restaurant } from "../../types/types"
 
@@ -137,7 +137,7 @@ const Login:FC = ()=>{
                 </div>
             )}
             <img src={ifutureLogo} alt="imagem"/>
-            <div className="title">{ isUserValidation ? 'Insira suas  redências para validação' : 'Login para provedores' }</div>
+            <div className="title">{ isUserValidation ? 'Insira suas  credências para validação' : 'Login para provedores' }</div>
             <form onSubmit={login}>
                 <input
                     type="text"
@@ -163,9 +163,11 @@ const Login:FC = ()=>{
                 }
                 <button>Entrar</button>
             </form>
-            <p>
-                Não possui cadastro? clique <Link to='/ifuture_react/signup'> aqui</Link>
-            </p>
+            {!useRevalidator && (
+                <p>
+                    Não possui cadastro? clique <Link to='/ifuture_react/signup'> aqui</Link>
+                </p>
+            )}
         </Container>
     )
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AiOutlineLogout } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { IoIosArrowBack } from "react-icons/io"
 import { Container } from './styled'
@@ -73,16 +72,6 @@ const OrderHistory = ()=>{
             localStorage.setItem('order', JSON.stringify(res.data))
             navigate('/ifuture_provider/order_details')
         }).catch(e => alert(e.response.data))
-    }
-
-
-    const logout = ()=>{
-        const decide = window.confirm('Tem certeza que deseja deslogar?')
-
-        if(decide){
-            localStorage.clear()
-            navigate('/ifuture_provider')
-        }
     }
     
 
