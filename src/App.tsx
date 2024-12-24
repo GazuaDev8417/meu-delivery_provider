@@ -66,8 +66,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .client{
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: 1rem;
       text-shadow: 1px 2px 5px black;
       color: blue;
       cursor: pointer;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MdEdit } from 'react-icons/md'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { MdFeed } from "react-icons/md"
 import { MdDelete } from "react-icons/md";

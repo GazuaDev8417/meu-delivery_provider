@@ -69,16 +69,6 @@ const OrderDeatails:FC = ()=>{
             //navigate('/ifuture_provider/client_data', { state: res.data } )
         }).catch(e => alert(e.response.data))
     }
-
-    
-    const logout = ()=>{
-        const decide = window.confirm('Tem certeza que deseja deslogar?')
-
-        if(decide){
-            localStorage.clear()
-            navigate('/ifuture_provider')
-        }
-    }
     
 
     

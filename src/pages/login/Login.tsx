@@ -38,7 +38,7 @@ const Login:FC = ()=>{
         cnpj:'',
         password:'Alfaromeo*021'
     })
-
+console.log(isUserValidation)
 
     const getRestaurant = ()=>{
         axios.get(`${BASE_URL}/restaurant`, {
@@ -49,16 +49,6 @@ const Login:FC = ()=>{
     }
     
 
-    /* useEffect(()=>{
-        if(location.state){
-            const { isUserValidation } = location.state as {
-                isUserValidation?: boolean
-            }
-
-            if(isUserValidation !== undefined) setIsUserValidation(isUserValidation)
-        }
-    }, [location.state]) */
-
     useEffect(()=>{        
         if(token && !isUserValidation){
             navigate('/ifuture_provider/orders')
@@ -67,14 +57,6 @@ const Login:FC = ()=>{
         }     
     }, [])
 
-    
-    /* useEffect(()=>{
-        const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
-        if(isMobileDevice){
-            setShowModal(true)
-        }
-    }, []) */
 
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
