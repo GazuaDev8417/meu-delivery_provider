@@ -44,4 +44,5 @@ export interface Order{
     client:string,
     address:string,
     description:string
+    state:string
 }

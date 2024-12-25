@@ -99,7 +99,8 @@ const OrderHistory = ()=>{
                             <b>Pedido feito em:</b> {order.moment} <br/>
                             <b>Quantidade:</b> {order.quantity}<br/>
                             <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
-                            <b>Endereço:</b> {order.address}
+                            <b>Endereço:</b> {order.address} <br />
+                            <b>Status:</b> {order.state === 'REQUESTED' ? 'Para entrega' : 'Finalizado'}
                         </div>
                         {/* <MdDelete className='icon' style={{
                                 color: hoveredItemId === order.id ? 'red' : 'black'

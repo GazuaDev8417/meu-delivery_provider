@@ -1,8 +1,7 @@
-import { FC, useContext, useEffect, useRef, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import { IoIosArrowBack } from "react-icons/io"
-import { AiOutlineLogout } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { Order, User } from "../../types/types"
 import { Container } from './styled'
@@ -26,7 +25,8 @@ const OrderDeatails:FC = ()=>{
         restaurant:'', 
         client:'',
         address:'',
-        description:''
+        description:'',
+        state:''
     })
     const [client, setClient] = useState<User>({
         id:'',
