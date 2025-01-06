@@ -4,7 +4,7 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { IoIosArrowBack } from "react-icons/io"
-import { Link, useNavigate, useLocation, useRevalidator } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import { Container } from "./styled"
 import { Restaurant } from "../../types/types"
 
@@ -34,11 +34,16 @@ const Login:FC = ()=>{
         name:'',
         shipping:0,
     })
+
+    const cnpjs = ['47821075000105', '13783221009858', '11965515001548', '42581496000184', '50478368000138', '42591651000143']
+    const limit = cnpjs.length - 1
+    const randomCnpjs = Math.floor(Math.random() * limit)
+    
     const [form, setForm] = useState<FormData>({
-        cnpj:'',
+        cnpj: cnpjs[randomCnpjs],
         password:'Alfaromeo*021'
     })
-console.log(isUserValidation)
+    
 
     const getRestaurant = ()=>{
         axios.get(`${BASE_URL}/restaurant`, {
@@ -145,9 +150,9 @@ console.log(isUserValidation)
                 }
                 <button>Entrar</button>
             </form>
-            {!useRevalidator && (
+            {!isUserValidation && (
                 <p>
-                    Não possui cadastro? clique <Link to='/ifuture_react/signup'> aqui</Link>
+                    Não possui cadastro? clique <Link to='/ifuture_provider/signup'> aqui</Link>
                 </p>
             )}
         </Container>

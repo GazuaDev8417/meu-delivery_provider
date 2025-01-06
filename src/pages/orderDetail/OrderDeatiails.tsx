@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import { IoIosArrowBack } from "react-icons/io"
 import { BsFillPersonFill } from 'react-icons/bs'
-import { Order, User } from "../../types/types"
+import { Order } from "../../types/types"
 import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
@@ -28,7 +28,7 @@ const OrderDeatails:FC = ()=>{
         description:'',
         state:''
     })
-    const [client, setClient] = useState<User>({
+    /* const [client, setClient] = useState<User>({
         id:'',
         username:'',
         cpf:'',
@@ -39,7 +39,7 @@ const OrderDeatails:FC = ()=>{
         city:'',
         state:'',
         complement:''
-    })
+    }) */
 
 
 
@@ -63,10 +63,8 @@ const OrderDeatails:FC = ()=>{
         }
 
         axios.get(`${BASE_URL}/user/${id}`, headers).then(res=>{
-            setClient(res.data)
             localStorage.setItem('clientData', JSON.stringify(res.data))
             navigate('/ifuture_provider', { state: { isUserValidation: true } } )
-            //navigate('/ifuture_provider/client_data', { state: res.data } )
         }).catch(e => alert(e.response.data))
     }
     
