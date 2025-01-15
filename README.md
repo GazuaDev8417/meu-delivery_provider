@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+# Ifuture Provider
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tela de login:
 
-Currently, two official plugins are available:
+Como se trata de uma demonstração resolvi deixar, como valor padrão dos inputs, as credenciais dos usuários. De maneira que, cada vez que a página é carregada, uma credencial válida é aleatoriamente posta.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img src="./readmeImg/tela_login.png">
 
-## Expanding the ESLint configuration
+## Pedidos para entrega:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Tela inicial com os pedidos para ser entregue. Cada pedido vem especificando o produto com seu valor, quantidade, momento da 
+solicitação e endereço para entrega. 
+Clicando no card do pedido o usuário é direcionado à página de detalhes do mesmo.
 
-- Configure the top-level `parserOptions` property like this:
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="width: 500px;">
+    <small>Tela de pedidos</small><br>
+    <img src="./readmeImg/pedidos.png" width="500">
+  </div>
+  <div style="width: 500px;">
+    <small>Detalhes do pedido</small><br>
+    <img src="./readmeImg/detatlhe_pedido.png" width="500"><br>
+    <small>
+      Nos detalhes do pedido, clicando no link "Cliente", se tem acesso ao cadastro do cliente que realizou o pedido.
+    </small>
+  </div>
+</div>
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```

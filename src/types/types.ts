@@ -5,6 +5,7 @@ export interface Restaurant{
     description:string
     id:string
     logourl:string
+    cnpj:string
     name:string
     shipping:number
 }

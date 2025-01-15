@@ -31,20 +31,15 @@ const Login:FC = ()=>{
         description:'',
         id:'',
         logourl:'',
+        cnpj:'',
         name:'',
         shipping:0,
     })
-
     const cnpjs = ['47821075000105', '13783221009858', '11965515001548', '42581496000184', '50478368000138', '42591651000143']
     const limit = cnpjs.length - 1
     const randomCnpjs = Math.floor(Math.random() * limit)
     
-    const [form, setForm] = useState<FormData>({
-        cnpj: cnpjs[randomCnpjs],
-        password:'Alfaromeo*021'
-    })
     
-
     const getRestaurant = ()=>{
         axios.get(`${BASE_URL}/restaurant`, {
             headers: { Authorization: token }
@@ -62,8 +57,30 @@ const Login:FC = ()=>{
         }     
     }, [])
 
+    
+    const cnpjResult = !isUserValidation ? cnpjs[randomCnpjs] : currentRestaurant.cnpj
+    console.log(cnpjResult)
+    const [form, setForm] = useState<FormData>({
+        cnpj: cnpjResult ?? currentRestaurant.cnpj,
+        password:'Alfaromeo*021'
+    })
+
+    console.log(form)
 
 
+    if(isUserValidation){
+        useEffect(() => {
+            const cnpjResult = !isUserValidation ? cnpjs[randomCnpjs] : currentRestaurant.cnpj;
+            console.log(cnpjResult);
+        
+            setForm({
+                cnpj: cnpjResult ?? currentRestaurant.cnpj,
+                password: 'Alfaromeo*021',
+            });
+        }, [isUserValidation, cnpjs, randomCnpjs, currentRestaurant])
+    }
+    
+    
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
         let newValue = value
