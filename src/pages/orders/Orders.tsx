@@ -19,6 +19,7 @@ const Orders = ()=>{
         description:'',
         id:'',
         logourl:'',
+        cnpj:'',
         name:'',
         shipping:0
     })

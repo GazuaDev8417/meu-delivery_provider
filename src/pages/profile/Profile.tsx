@@ -25,6 +25,7 @@ const Profile:FC = ()=>{
         description:'',
         id:'',
         logourl:'',
+        cnpj:'',
         name:'',
         shipping:0
     })

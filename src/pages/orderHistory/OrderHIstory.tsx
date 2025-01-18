@@ -19,6 +19,7 @@ const OrderHistory = ()=>{
         description:'',
         id:'',
         logourl:'',
+        cnpj:'',
         name:'',
         shipping:0
     })
