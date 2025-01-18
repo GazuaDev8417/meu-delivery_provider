@@ -133,11 +133,7 @@ const ClientData = ()=>{
                             <b>Pedido feito em:</b> {order.moment} <br/>
                             <b>Quantidade:</b> {order.quantity}<br/>
                             <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
-                            <b>Restaurante:</b> Clique <a onClick={() =>{
-                                localStorage.setItem('selectedOrderId', order.id)
-                                localStorage.setItem('restaurantId', order.restaurant)
-                                navigate(`/ifuture_react/detail`)
-                            }}>aqui</a> para ver o restaurante do pedido
+                            <b>Status:</b> {order.state === 'FINISHED' ? 'Finalizado' : null} 
                         </div>
                         <MdDelete className='icon' style={{
                                 color: hoveredItemId === order.id ? 'red' : 'black'
