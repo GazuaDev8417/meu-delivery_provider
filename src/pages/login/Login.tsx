@@ -62,7 +62,7 @@ const Login:FC = ()=>{
     console.log(cnpjResult)
     const [form, setForm] = useState<FormData>({
         cnpj: cnpjResult ?? currentRestaurant.cnpj,
-        password:'Alfaromeo*021'
+        password:'123456'
     })
 
     console.log(form)
@@ -75,7 +75,7 @@ const Login:FC = ()=>{
         
             setForm({
                 cnpj: cnpjResult ?? currentRestaurant.cnpj,
-                password: 'Alfaromeo*021',
+                password: '123456',
             });
         }, [isUserValidation, cnpjs, randomCnpjs, currentRestaurant])
     }
