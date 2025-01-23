@@ -59,20 +59,17 @@ const Login:FC = ()=>{
 
     
     const cnpjResult = !isUserValidation ? cnpjs[randomCnpjs] : currentRestaurant.cnpj
-    console.log(cnpjResult)
     const [form, setForm] = useState<FormData>({
         cnpj: cnpjResult ?? currentRestaurant.cnpj,
         password:'123456'
     })
-
-    console.log(form)
+    
 
 
     if(isUserValidation){
         useEffect(() => {
-            const cnpjResult = !isUserValidation ? cnpjs[randomCnpjs] : currentRestaurant.cnpj;
-            console.log(cnpjResult);
-        
+            const cnpjResult = !isUserValidation ? cnpjs[randomCnpjs] : currentRestaurant.cnpj
+            
             setForm({
                 cnpj: cnpjResult ?? currentRestaurant.cnpj,
                 password: '123456',

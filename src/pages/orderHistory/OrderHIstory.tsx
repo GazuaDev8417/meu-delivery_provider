@@ -59,7 +59,6 @@ const OrderHistory = ()=>{
 
         axios.get(`${BASE_URL}/active_restaurant_orders`, headers).then(res=>{
             setOrders(res.data)
-            console.log(res.data)
         }).catch(e => alert(e.response.data))
     }
 

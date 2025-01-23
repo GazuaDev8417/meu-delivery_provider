@@ -39,7 +39,6 @@ const Profile:FC = ()=>{
             headers: { Authorization: token }
         }).then(res =>{
             setMenu(res.data)
-            console.log(res.data)
             axios.get(`${BASE_URL}/restaurant_menu`, {
                 headers: { Authorization: token }
             }).then(res=>{

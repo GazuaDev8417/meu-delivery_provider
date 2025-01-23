@@ -59,7 +59,7 @@ const Signup:FC = ()=>{
         setForm({ ...form, [name]: newValue })
     }
 
-console.log(showAlert)
+
     const launchAlert = ()=>{
         if(!showAlert){
             alert('Se o resultado da busca pelo seu CNPJ não retornar um nome fantasia este será posto no lugar.')
