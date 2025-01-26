@@ -69,6 +69,10 @@ export const Container = styled.div`
     }
 
     @media(max-width: 510px){
+        .title{
+            font-size: 18px;
+        }
+
         .form-input{
             width: 65vw;
         }

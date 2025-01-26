@@ -130,11 +130,20 @@ const Login:FC = ()=>{
         }
     }
     
+
+
+    
     return(
         <Container>
             {isUserValidation && (
                 <div className="header">
-                    <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>
+                    <IoIosArrowBack className="header-icon" onClick={()=>{
+                        if(window.history.length > 1){
+                            navigate(-1)
+                        }else{
+                            navigate('/ifuture_provider')
+                        }
+                    }}/>
                 </div>
             )}
             <img src={ifutureLogo} alt="imagem"/>
