@@ -149,29 +149,42 @@ const Login:FC = ()=>{
             <img src={ifutureLogo} alt="imagem"/>
             <div className="title">{ isUserValidation ? 'Insira suas  credências para validação' : 'Login para provedores' }</div>
             <form onSubmit={login}>
+                <label htmlFor="cnpj" className="sr-only">CNPJ</label>
                 <input
+                    id="cnpj"
                     type="text"
                     className="form-input"
                     name="cnpj"
                     maxLength={18}
                     value={form.cnpj}
                     onChange={onChange}
-                    placeholder="00.000.000/0000-00" // Updated placeholder
+                    placeholder="00.000.000/0000-00"
+                    autoComplete="username"
+                    aria-label="cnpj"
                     required/>
-                <input
-                    type={!showPass ? 'password' : 'text'}
-                    className="form-input"
-                    name="password"
-                    value={form.password}
-                    onChange={onChange} 
-                    placeholder="Sua senha"
-                    required/>
-                {
-                    !showPass ? (
-                        <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
-                    ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
-                }
-                <button>Entrar</button>
+                <label htmlFor="password" className="sr-only">Senha</label>
+                <div className="input-icon-container">
+                    <input
+                        id="password"
+                        type={!showPass ? 'password' : 'text'}
+                        className="form-input input-execption"
+                        name="password"
+                        value={form.password}
+                        onChange={onChange} 
+                        placeholder="Sua senha"
+                        autoComplete="current-password"
+                        aria-label="Senha"
+                        required/>
+                    {
+                        !showPass ? (
+                            <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
+                        ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
+                    }
+                </div>
+                <div className="btn-container">
+                    <button className="login-button" onClick={() => setForm({ cnpj:'', password:'' })}>Limpar</button>
+                    <button className="login-button" type="submit">Entrar</button>
+                </div>
             </form>
             {!isUserValidation && (
                 <p>
