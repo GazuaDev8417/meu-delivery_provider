@@ -55,7 +55,9 @@ const OrderDeatails:FC = ()=>{
             setOrder(JSON.parse(order))
         }
     }, [])
-
+    const fullAddress = order?.address
+    const address = fullAddress?.substring(0, fullAddress.lastIndexOf(','))
+    const talkTo = fullAddress?.substring(fullAddress.lastIndexOf(',') + 1, fullAddress.length)
 
     const userById = (id:string)=>{
         const headers = {
@@ -89,7 +91,8 @@ const OrderDeatails:FC = ()=>{
                 <div className="desc">{order.description}</div>
                     <p className="orderData">
                         <b>Pedido feito em:</b> {order.moment}<br />
-                        <b>Endereço para entrega:</b> {order.address} <br /><br />
+                        <b>Endereço para entrega:</b> {address} <br />
+                        <b>Falar com:</b> {talkTo} <br /><br />
                         <div className="client" onClick={() => userById(order.client)} >Cliente</div>
                     </p>
             </div>

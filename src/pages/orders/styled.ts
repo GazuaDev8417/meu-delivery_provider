@@ -8,10 +8,6 @@ export const Container = styled.div`
     /* justify-content: center; */
     margin: 15vh 5rem;
 
-    @media(max-width: 517px){
-        margin: 15vh 1.5rem;
-    }
-
     h1{
         text-align: center;
         margin: 5vh 0 10vh;
@@ -52,8 +48,14 @@ export const Container = styled.div`
     }
 
     .icon{
-        font-size: 1.5rem;
+        font-size: 2rem;
         cursor: pointer;
+        color: red;
+        transition: .3s ease-in-out;
+    }
+
+    .icon:active{
+        transform: scale(.9);
     }
 
     hr{
@@ -79,14 +81,8 @@ export const Container = styled.div`
         line-height: 30px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
         transition: .5s;
-    }
-
-    .card:hover{
-        background-color: lightgray;
-        cursor: pointer;
-        transform: scale(1.1);
     }
 
     .rest-name{
@@ -101,7 +97,19 @@ export const Container = styled.div`
         cursor: pointer;
     }
 
+    .sentMarked{
+        padding: 5px;
+    }
+    
+    .end-payment{
+        padding: 5px;
+    }
+
 /* MEDIA QUERY */
+    @media(max-width: 517px){
+        margin: 15vh 1.5rem;
+    }
+
     @media(max-width: 660px){
         h1{
             font-size: 1.5rem;
@@ -111,4 +119,34 @@ export const Container = styled.div`
             font-size: 1.2rem;
         }
     }
+`
+
+export const Overlay = styled.div<{ active: boolean }>`
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    display: ${({ active }) => (active ? 'block' : 'none')};
+    opacity: ${({ active }) => (active ? 1 : 0)};
+    transition: opacity .3s ease;
+    z-index: 900;
+`
+export const Modal = styled.div<{ active: boolean }>`
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 15px;
+    background: lightgray;
+    border: 2px solid;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(${({ active }) => (active ? 1 : 0)});
+    opacity: ${({ active }) => (active ? 1 : 0)};
+    z-index: 901;
+    transition: transform .3s ease-in-out, opacity .3s ease;
+    pointer-events: ${({ active }) => (active ? "auto" : "none")};
+    will-change: transform, opacity;
+
+
 `

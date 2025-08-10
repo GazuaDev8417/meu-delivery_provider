@@ -46,4 +46,5 @@ export interface Order{
     address:string,
     description:string
     state:string
+    paymentmethod:string
 }

@@ -137,7 +137,7 @@ const Profile:FC = ()=>{
                             <div className="product-desc">
                                 <h4>{product.name}</h4><br/>
                                 {product.description}<br/><br/>
-                                <div>R$ {product.price.toFixed(2)}</div>
+                                <div>R$ {product.price}</div>
                             </div>
                             <button onClick={() => deleteProduct(product)}>Remover</button>
                         </div>

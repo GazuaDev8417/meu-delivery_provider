@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BsFillPersonFill } from 'react-icons/bs'
-import { GoHistory } from "react-icons/go"
-import { Container } from './styled'
+import { MdDeleteForever } from "react-icons/md";
+import { Container, Modal, Overlay } from './styled'
 import { BASE_URL } from '../../constants/url'
 import axios from 'axios'
 import Header from '../../components/Header';
@@ -24,8 +24,10 @@ const Orders = ()=>{
         shipping:0
     })
     const [orders, setOrders] = useState<Order[]>([])
+    const [open, setOpen] = useState<boolean>(false)
+    const [paymentMethod, setPaymentMethod] = useState<string>('')
 
-    
+   
 
     useEffect(()=>{
         getRestaurant()
@@ -39,6 +41,11 @@ const Orders = ()=>{
             navigate('/ifuture_provider')
         }
     }, [])
+
+
+    const handleChange = (e:ChangeEvent<HTMLSelectElement>)=>{
+        setPaymentMethod(e.target.value)
+    }
 
 
     const getRestaurant = ()=>{
@@ -61,16 +68,40 @@ const Orders = ()=>{
         }).catch(e => alert(e.response.data))
     }
 
-
-    const orderById = (id:string)=>{
-        const headers = {
-            headers : { Authorization: localStorage.getItem('token') }
+    const markOrder = (id:string)=>{
+        const body = {
+            paymentmethod: paymentMethod
         }
-        
-        axios.get(`${BASE_URL}/order/${id}`, headers).then(res=>{
-            localStorage.setItem('order', JSON.stringify(res.data))
-            navigate('/ifuture_provider/order_details')
-        }).catch(e => alert(e.response.data))
+
+        axios.patch(`${BASE_URL}/finished_order/${id}`, body)
+            .then(()=>{
+                requestedOrders()
+                setOpen(false)
+            })
+            .catch(e => e.response.data)
+    }
+
+    const changeOrder = (id:string)=>{
+
+        axios.patch(`${BASE_URL}/change_order/${id}`)
+            .then(()=>{
+                requestedOrders()
+                setOpen(false)
+            })
+            .catch(e => e.response.data)
+    }
+
+    const removeOrder = (order:Order)=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+        const confirmDelete = confirm(`Tem certeza que deseja excluir ${order.product} da lista de pedido?`)
+
+        if(confirmDelete){
+            axios.delete(`${BASE_URL}/order/${order.id}`, headers)
+                .then(() => requestedOrders())
+                .catch(e => e.response.data)
+        }
     }
 
 
@@ -82,7 +113,7 @@ const Orders = ()=>{
                 <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_provider/profile')} />
             }
             leftIcon={
-                <GoHistory className="header-icon" onClick={()=> navigate('/ifuture_provider/orders_history')}/>
+                <div/>
             }/>        
         <Container>    
             <h1>{restaurant.name}</h1>            
@@ -91,22 +122,52 @@ const Orders = ()=>{
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="card-container">
                 {orders.length > 0 ? orders.map(order=>(
-                    <div className="card" key={order.id} onClick={() => orderById(order.id)} >
-                        <div className="card-content">
-                            <div className="rest-name">{order.product} R$ {order.price.toFixed(2)}</div>
-                            <b>Pedido feito em:</b> {order.moment} <br/>
-                            <b>Quantidade:</b> {order.quantity}<br/>
-                            <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
-                            <b>Endereço:</b> {order.address} <br />
-                            <b>Status:</b> {order.state === 'REQUESTED' ? 'Para entrega' : 'Finalizado'}
+                    <>
+                        <Overlay active={open} onClick={() => setOpen(false)} />
+                        <Modal active={open}>
+                            <h3>Método de pagamento: {paymentMethod || 'Nenhum'}</h3>
+                            <select value={paymentMethod} onChange={handleChange}>
+                                <option value="dinheiro">Dinheiro</option>
+                                <option value="pix">Pix</option>
+                                <option value="credito">Crédito</option>
+                                <option value="debito">Débito</option>
+                            </select>
+                            <button 
+                                className='end-payment' 
+                                onClick={() => markOrder(order.id)}>
+                                Enviar
+                            </button>
+                        </Modal>
+                        <div className="card" key={order.id}>
+                            <div style={{display:'flex'}}>
+                                <div className="card-content">
+                                    <div className="rest-name">{order.product} R$ {order.price}</div>
+                                    <b>Pedido feito em:</b> {order.moment} <br/>
+                                    <b>Quantidade:</b> {order.quantity}<br/>
+                                    <b>Total:</b> R$ {order.total}<br/>
+                                    <b>Endereço:</b> {order.address.substring(0, order.address.lastIndexOf(','))}<br/>
+                                    <b>Falar com:</b> {order.address.substring(order.address.lastIndexOf(',') + 1, order.address.length)}<br/>
+                                    <b>Status:</b> {order.state === 'REQUESTED' ? 'Para entrega' : 'Finalizado'}<br />
+                                    {
+                                        order.state === 'FINISHED' ? (
+                                        <><b>Método de pagamento:</b> {order.paymentmethod}</> 
+                                            
+                                        ) : null
+                                    }
+                                </div>
+                                <MdDeleteForever className='icon' onClick={() => removeOrder(order)}/>
+                            </div>
+                            <button className='sentMarked' onClick={()=>{
+                                if(order.state === 'REQUESTED'){
+                                    setOpen(true)
+                                }else{
+                                    changeOrder(order.id)
+                                }
+                            }}>
+                                {order.state === 'REQUESTED' ? 'Marcar como enviado' : 'Desmarcar'}
+                            </button>
                         </div>
-                        {/* <MdDelete className='icon' style={{
-                                color: hoveredItemId === order.id ? 'red' : 'black'
-                            }}
-                            onMouseOver={() => setHoveredItemId(order.id)}
-                            onMouseOut={() => setHoveredItemId('')}
-                            onClick={() => deleteOrder(order.id)}/> */}
-                    </div>
+                    </>
                 )) : <div>Ainda não há registro de pedidos</div> }
             </div>
         </Container>
