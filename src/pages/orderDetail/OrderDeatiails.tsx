@@ -26,7 +26,8 @@ const OrderDeatails:FC = ()=>{
         client:'',
         address:'',
         description:'',
-        state:''
+        state:'',
+        paymentmethod:''
     })
     /* const [client, setClient] = useState<User>({
         id:'',

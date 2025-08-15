@@ -122,8 +122,16 @@ export const Container = styled.div`
 
 /* MEDIA QUERY */
     @media(max-width: 930px){
+        justify-content: flex-start;
+        
         .form-input{
             width: 40vw;
+        }
+
+        .btn-container{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         button{

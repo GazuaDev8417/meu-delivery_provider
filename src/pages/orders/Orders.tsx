@@ -145,8 +145,8 @@ const Orders = ()=>{
                                     <b>Pedido feito em:</b> {order.moment} <br/>
                                     <b>Quantidade:</b> {order.quantity}<br/>
                                     <b>Total:</b> R$ {order.total}<br/>
-                                    <b>Endereço:</b> {order.address.substring(0, order.address.lastIndexOf(','))}<br/>
-                                    <b>Falar com:</b> {order.address.substring(order.address.lastIndexOf(',') + 1, order.address.length)}<br/>
+                                    <b>Endereço:</b> {order.address?.substring(0, order.address.lastIndexOf(','))}<br/>
+                                    <b>Falar com:</b> {order.address?.substring(order.address.lastIndexOf(',') + 1, order.address.length)}<br/>
                                     <b>Status:</b> {order.state === 'REQUESTED' ? 'Para entrega' : 'Finalizado'}<br />
                                     {
                                         order.state === 'FINISHED' ? (
@@ -157,15 +157,20 @@ const Orders = ()=>{
                                 </div>
                                 <MdDeleteForever className='icon' onClick={() => removeOrder(order)}/>
                             </div>
-                            <button className='sentMarked' onClick={()=>{
-                                if(order.state === 'REQUESTED'){
-                                    setOpen(true)
-                                }else{
-                                    changeOrder(order.id)
-                                }
-                            }}>
-                                {order.state === 'REQUESTED' ? 'Marcar como enviado' : 'Desmarcar'}
-                            </button>
+                            <div style={{display:'flex', flexDirection:'column', gap:'5px', marginTop:'10px'}}>
+                                <button className='sentMarked' onClick={()=>{
+                                    if(order.state === 'REQUESTED'){
+                                            setOpen(true)
+                                        }else{
+                                            changeOrder(order.id)
+                                        }
+                                    }}>
+                                    {order.state === 'REQUESTED' ? 'Marcar como enviado' : 'Desmarcar'}
+                                </button>
+                                <button 
+                                    className="remove-btn"
+                                    onClick={() => removeOrder(order)}>Remover</button>
+                            </div>
                         </div>
                     </>
                 )) : <div>Ainda não há registro de pedidos</div> }

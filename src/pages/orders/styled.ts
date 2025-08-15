@@ -96,7 +96,7 @@ export const Container = styled.div`
     a:hover{
         cursor: pointer;
     }
-
+    
     .sentMarked{
         padding: 5px;
     }
@@ -105,9 +105,22 @@ export const Container = styled.div`
         padding: 5px;
     }
 
+    .remove-btn{
+        padding: 5px;
+        display: none;
+    }
+
 /* MEDIA QUERY */
     @media(max-width: 517px){
         margin: 15vh 1.5rem;
+
+        .icon{
+            display: none;
+        }
+
+        .remove-btn{
+            display: block;
+        }
     }
 
     @media(max-width: 660px){
