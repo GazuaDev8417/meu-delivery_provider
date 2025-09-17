@@ -39,7 +39,7 @@ const Signup:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(token){
-            navigate('/ifuture_provider/orders')
+            navigate('/meu-delivery-provider/orders')
         }
     }, [])
 
@@ -81,7 +81,7 @@ const Signup:FC = ()=>{
         }
         axios.post(`${BASE_URL}/signup_restaurant`, body).then(res=>{
             localStorage.setItem('token',res.data)
-            navigate('/ifuture_provider/orders')
+            navigate('/meu-delivery-provider/orders')
         }).catch(e=>{
             alert(e.response.data)
         })
@@ -184,7 +184,7 @@ const Signup:FC = ()=>{
                         <button type="submit">Registrar</button>
                     </div>
                     <button type="button"
-                        onClick={()=> navigate('/ifuture_provider')}>Voltar para login</button>
+                        onClick={()=> navigate('/meu-delivery-provider')}>Voltar para login</button>
                 </div>
             </form>
         </Container>

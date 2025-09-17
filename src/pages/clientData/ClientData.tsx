@@ -28,7 +28,7 @@ const ClientData = ()=>{
     useEffect(()=>{
 
         if(!token){
-            navigate('/ifuture_react')
+            navigate('/meu-delivery-provider')
         }
     }, [])
 
@@ -51,7 +51,7 @@ const ClientData = ()=>{
 
         if(decide){
             localStorage.clear()
-            navigate('/ifuture_provider')
+            navigate('/meu-delivery-provider')
         }
     }
 
@@ -96,7 +96,7 @@ const ClientData = ()=>{
                 <AiOutlineLogout className="header-icon" onClick={logout} />
             }
             leftIcon={
-                <MdFeed className="header-icon" onClick={()=> navigate('/ifuture_provider/orders')}/>
+                <MdFeed className="header-icon" onClick={()=> navigate('/meu-delivery-provider/orders')}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            
@@ -106,14 +106,14 @@ const ClientData = ()=>{
                     {user.email} <br />
                     {/* {maskedCPF(user.cpf)} */}
                 </div>
-                {/* <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} /> */}
+                {/* <MdEdit className="icon" onClick={()=> navigate('/meu-delivery-provider/edit-profile')} /> */}
             </div>
             <div className="address-section">
                 <div>Endereço cadastrado: <br />
                     {user.street} Nº {user.number}, {user.neighbourhood}, {user.city} - {user.state}
                 </div>
                 {/* <MdEdit className="icon" onClick={()=> {
-                    navigate('/ifuture_react/address')
+                    navigate('/meu-delivery-provider/address')
                 }}/> */}
             </div>
             <div className="addressAndName">

@@ -54,7 +54,7 @@ const Profile:FC = ()=>{
         const token = localStorage.getItem('token')
         
         if(!token){
-            navigate('/ifuture_provider')
+            navigate('/meu-delivery-provider')
         }
 
         restaurantByToken()
@@ -86,7 +86,7 @@ const Profile:FC = ()=>{
 
         if(decide){
             localStorage.clear()
-            navigate('/ifuture_provider')
+            navigate('/meu-delivery-provider')
         }
     }
 
@@ -99,7 +99,7 @@ const Profile:FC = ()=>{
         <Header
             leftIcon={
                 <MdFeed className="header-icon" onClick={()=>{
-                    navigate('/ifuture_provider/orders')
+                    navigate('/meu-delivery-provider/orders')
                 }} />
             }
             rightIcon={

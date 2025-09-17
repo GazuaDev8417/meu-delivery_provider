@@ -76,12 +76,13 @@ export const Container = styled.div`
     .card{
         border: 1px solid;
         border-radius: 10px;
-        padding: 5px 10px;
+        padding: 5px;
         margin: 5px;
         line-height: 30px;
         display: flex;
         align-items: center;
         flex-direction: column;
+        justify-content: space-between;
         transition: .5s;
     }
 
@@ -96,6 +97,14 @@ export const Container = styled.div`
     a:hover{
         cursor: pointer;
     }
+
+    .btn-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
     
     .sentMarked{
         padding: 5px;
@@ -107,7 +116,6 @@ export const Container = styled.div`
 
     .remove-btn{
         padding: 5px;
-        display: none;
     }
 
 /* MEDIA QUERY */

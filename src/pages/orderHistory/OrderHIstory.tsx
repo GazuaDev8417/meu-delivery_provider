@@ -37,7 +37,7 @@ const OrderHistory = ()=>{
         const token = localStorage.getItem('token')
 
         if(!token){
-            navigate('/ifuture_provider')
+            navigate('/meu-delivery-provider')
         }
     }, [])
 
@@ -70,7 +70,7 @@ const OrderHistory = ()=>{
         
         axios.get(`${BASE_URL}/order/${id}`, headers).then(res=>{
             localStorage.setItem('order', JSON.stringify(res.data))
-            navigate('/ifuture_provider/order_details')
+            navigate('/meu-delivery-provider/order_details')
         }).catch(e => alert(e.response.data))
     }
     
@@ -81,7 +81,7 @@ const OrderHistory = ()=>{
         <>
         <Header
             rightIcon={
-                <BsFillPersonFill className="header-icon" onClick={() => navigate('/ifuture_provider/profile')} />
+                <BsFillPersonFill className="header-icon" onClick={() => navigate('/meu-delivery-provider/profile')} />
             }
             leftIcon={
                 <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>
