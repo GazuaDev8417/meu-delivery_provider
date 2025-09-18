@@ -9,6 +9,7 @@ import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import InsertProduct from "../../components/InsertProducts"
+import { productsImages } from "../../constants"
 
 
 
@@ -39,7 +40,7 @@ const Profile:FC = ()=>{
             headers: { Authorization: token }
         }).then(res =>{
             setMenu(res.data)
-            axios.get(`${BASE_URL}/restaurant_menu`, {
+            axios.get(`${BASE_URL}/restaurant_products`, {
                 headers: { Authorization: token }
             }).then(res=>{
                 setProducts(res.data)
@@ -109,7 +110,7 @@ const Profile:FC = ()=>{
             <div className="card">
                 <div className="rest-name">{menu.category}</div>
                 <img 
-                    src={menu.logourl}
+                    src={`/meu-delivery-provider/imgs/restaurants/${menu.logourl}`}
                     alt="Imagem do restaurante"
                     className="image"/>                
                 <div className="desc">
@@ -118,10 +119,14 @@ const Profile:FC = ()=>{
                 <div className="menuTitle-container">
                     <div></div>
                     <div className="products">{!showForm ? 'Cardápio Principal' : 'Adicionar produtos'}</div>
-                    <div className="icon-container" onClick={() => setShowForm((prevState) => !prevState)}>
-                        <span className="text">{!showForm ? 'Adicionar' : 'Voltar'}</span>
-                        {!showForm ? <IoMdAddCircle className="icon" /> : <IoMdCloseCircle className="icon" /> }
-                    </div>
+                    {/* <div className="icon-container" onClick={() => setShowForm((prevState) => !prevState)}> */}
+                        {/* <span className="text">{!showForm ? 'Adicionar' : 'Voltar'}</span> */}
+                        {!showForm
+                        ? 
+                        <IoMdAddCircle title="Adicionar produto" className="icon" onClick={() => setShowForm(true)} /> 
+                        : 
+                        <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setShowForm(false)} /> }
+                    {/* </div> */}
                 </div>
                 <div className="products-container">
                     {!showForm ? products && products.map(product=>(
@@ -132,7 +137,7 @@ const Profile:FC = ()=>{
                             >
                             <img
                                 className="product-image" 
-                                src={product.photoUrl}
+                                src={productsImages[product.photoUrl]}
                                 alt="Foto do produto" />
                             <div className="product-desc">
                                 <h4>{product.name}</h4><br/>
