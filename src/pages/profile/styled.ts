@@ -10,6 +10,7 @@ export const Container = styled.div`
         text-align: center;
         margin: 5vh 0 3vh;
     }
+
     .card{
         display: flex;
         flex-direction: column;
@@ -44,7 +45,7 @@ export const Container = styled.div`
         justify-content: space-between;
     }
 
-    .icon-container{
+    /* .icon-container{
         display: flex;
         align-items: center;
         gap: 5px;
@@ -63,16 +64,21 @@ export const Container = styled.div`
     .icon-container:hover .text{
         color: whitesmoke;
         transition: .5s;
-    }
+    } */
 
-    .icon-container:hover .icon{
-        color: #dc2b2b;
+    .icon{
+        font-size: 25px;
+        cursor: pointer;
         transition: .5s;
     }
-        
-    .icon{
-        font-size: 20px;
-        cursor: pointer;
+
+    .icon:hover{
+        color: #dc2b2b;
+    }
+
+    .products-container{
+        max-height: 40vh;
+        overflow-y: auto;
     }
 
     .products{
@@ -97,9 +103,7 @@ export const Container = styled.div`
         margin: 10px;
     }
 
-    .product-image{
-        width: 100px;
-        height: 130px;	
+    .product-image{	
         border-radius: 10px;
     }
 

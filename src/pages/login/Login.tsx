@@ -85,7 +85,7 @@ const Login:FC = ()=>{
 
         axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
             localStorage.setItem('token', res.data)
-            navigate('/meu-delivery-provider/client_data')
+            navigate('/meu-delivery-provider/orders')
             /* if(currentRestaurant.id !== res.data){
                 return alert('Credenciais inválidas!')
             }else{
