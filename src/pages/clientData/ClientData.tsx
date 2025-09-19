@@ -15,18 +15,30 @@ import { Order, User } from '../../types/types'
 const ClientData = ()=>{
     const navigate = useNavigate()
     const token = localStorage.getItem('token')
-    const user:User = JSON.parse(localStorage.getItem('clientData') ?? '{}')
+    const userId = localStorage.getItem('userId')
+    const [user, setUser] = useState<User>({
+        id:'',
+        username:'',
+        cpf:'',
+        email:'',
+        street:'',
+        number:'',
+        neighbourhood:'',
+        city:'',
+        state:'',
+        complement:''
+    })
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
 
 
 
     useEffect(()=>{
+        getProfileByUser()
         orderHistory()
     }, [])
 
     useEffect(()=>{
-
         if(!token){
             navigate('/meu-delivery-provider')
         }
@@ -35,14 +47,21 @@ const ClientData = ()=>{
 
 
 
+    const getProfileByUser = ()=>{
+        axios.get(`${BASE_URL}/profile/${userId}`, {
+            headers: { Authorization: localStorage.getItem('token') }
+        }).then(res => setUser(res.data))
+        .catch(e => alert(e.response.data))
+    }
+
     const orderHistory = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
         
-        axios.get(`${BASE_URL}/users_orders/${user.id}`, headers).then(res=>{
+        /* axios.get(`${BASE_URL}/users_orders/${user.id}`, headers).then(res=>{
             setOrders(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => alert(e.response.data)) */
     }
 
 

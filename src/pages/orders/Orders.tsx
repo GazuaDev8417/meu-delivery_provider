@@ -64,7 +64,6 @@ const Orders = ()=>{
 
         axios.get(`${BASE_URL}/restaurant/orders`, headers).then(res=>{
             setOrders(res.data)
-            console.log(res.data)
         }).catch(e => alert(e.response.data))
     }
 
@@ -95,6 +94,8 @@ const Orders = ()=>{
 
     const groupedOrders = groupedByState(orders)
 
+    
+
 
     
     return(
@@ -110,10 +111,12 @@ const Orders = ()=>{
             <h1>{restaurant.name}</h1>            
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div id='history' className="order-history">Lista de Pedidos</div>
+            <small>Clicando em Pendente ou Concluído você poderá ver os pedidos correspondentes</small>
             {/* Barra fixa de categorias */}
-            <div className="categories-bar" title="Clique para ver os produtos">
+            <div className="categories-bar">
                 {groupedOrders.map(group => (
                 <h3 
+                    title={group.state === 'REQUESTED' ? "Clique para ver os pedidos pendentes" : "Clique para ver os pedidos concluídos"}
                     key={group.state} 
                     onClick={() => setOpenState(group.state)}
                     style={{
@@ -131,13 +134,14 @@ const Orders = ()=>{
                         <div key={order.id}>
                         <div className="card" key={order.id}>
                             <div className="card-content">
-                                <div className="rest-name">{order.product} R$ {order.price}</div>
+                                <div className="rest-name">{order.product}</div>
+                                R$ {order.price} <br />
                                 <b>Pedido feito em:</b> {order.moment} <br/>
                                 <b>Quantidade:</b> {order.quantity}<br/>
                                 <b>Total:</b> R$ {order.total}<br/>
                                 <b>Endereço:</b> {order.address?.substring(0, order.address.lastIndexOf(','))}<br/>
                                 <b>Falar com:</b> {order.address?.substring(order.address.lastIndexOf(',') + 1, order.address.length)}<br/>
-                                <b>Status:</b> {order.state === 'REQUESTED' ? 'Para entrega' : 'Finalizado'}<br />
+                                <b>Situação:</b> {order.state === 'REQUESTED' ? 'Para entregar' : 'Finalizado'}<br />
                                 {
                                     order.state === 'FINISHED' ? (
                                     <><b>Método de pagamento:</b> {order.paymentmethod}</> 
@@ -145,7 +149,15 @@ const Orders = ()=>{
                                     ) : null
                                 }
                             </div>
-                            <div className='btn-container'>
+                            <div className="btn-container">
+                                <button
+                                    onClick={() =>{
+                                        localStorage.setItem('userId', order.client)
+                                        navigate('/meu-delivery-provider/client_data')
+                                    }} 
+                                    className="check-client-btn">
+                                    Ver cliente
+                                </button>
                                 {order.state === 'FINISHED' && (
                                     <button 
                                         className="remove-btn"

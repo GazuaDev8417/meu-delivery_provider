@@ -79,7 +79,10 @@ export const Container = styled.div`
 
     .order-history{
         font-size: 1.5rem;
-        margin: 5vh 0 3vh;
+    }
+
+    small{
+        margin-bottom: 15px;
     }
 
     .card-container{
@@ -113,23 +116,15 @@ export const Container = styled.div`
     }
 
     .btn-container{
-        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    }
-    
-    .sentMarked{
-        padding: 5px;
-    }
-    
-    .end-payment{
-        padding: 5px;
+        justify-content: space-around;
+        width: 100%;
     }
 
+    .check-client-btn,
     .remove-btn{
-        padding: 5px;
+        padding: 5px 10px;
     }
 
 /* MEDIA QUERY */

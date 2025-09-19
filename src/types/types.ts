@@ -25,7 +25,7 @@ export interface User{
     username:string
     cpf:string
     email:string
-    street:string,
+    street:string
     number:string
     neighbourhood:string
     city:string
