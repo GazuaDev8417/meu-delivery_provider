@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react"
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 import { MdFeed } from "react-icons/md"
@@ -14,11 +14,19 @@ import { productsImages } from "../../constants"
 
 
 
+type GroupedProducts = {
+  category: string
+  items: Products[]
+}
+
+
 const Profile:FC = ()=>{
     const navigate = useNavigate()
-    const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
+    const productsRef = useRef<HTMLDivElement | null>(null)
+    const [searchWord, setSearchWord] = useState<string>('')
     const [products, setProducts] = useState<Products[]>([])
     const [showForm, setShowForm] = useState<boolean>(false)
+    const [openCategory, setOpenCategory] = useState<string | null>(null)
     const [menu, setMenu] = useState<Restaurant>({
         address:'',
         category:'',
@@ -30,6 +38,22 @@ const Profile:FC = ()=>{
         name:'',
         shipping:0
     })
+
+
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token')
+        
+        if(!token){
+            navigate('/meu-delivery-provider')
+        }
+    }, [])
+
+    useEffect(()=>{
+        if(openCategory && productsRef.current){
+            productsRef.current.scrollIntoView({ behavior:'smooth' })
+        }
+    }, [openCategory])
 
 
 
@@ -52,19 +76,21 @@ const Profile:FC = ()=>{
      
 
     useEffect(()=>{
-        const token = localStorage.getItem('token')
-        
-        if(!token){
-            navigate('/meu-delivery-provider')
-        }
-
-        restaurantByToken()
-    }, [])
-    
-
-    useEffect(()=>{
         restaurantByToken()
     }, [showForm])
+
+
+    const groupedByCategory = (products:Products[]):GroupedProducts[]=>{
+        const grouped = products.reduce((acc, product)=>{
+            if(!acc[product.category]){
+                acc[product.category] = { category: product.category, items: []}
+            }
+            acc[product.category].items.push(product)
+            return acc
+        }, {} as Record<string, GroupedProducts>)
+
+        return Object.values(grouped)
+    }
 
 
     const deleteProduct = (product:Products)=>{
@@ -91,6 +117,14 @@ const Profile:FC = ()=>{
         }
     }
 
+    const groupedProducts = groupedByCategory(products)
+
+    const handleInputSearch = (e:ChangeEvent<HTMLInputElement>)=>{
+        if(openCategory === null){
+            alert('Selectione o tipo de produto que quer procurar')
+        }
+        setSearchWord(e.target.value)
+    }
     
 
 
@@ -119,33 +153,66 @@ const Profile:FC = ()=>{
                 <div className="menuTitle-container">
                     <div></div>
                     <div className="products">{!showForm ? 'Cardápio Principal' : 'Adicionar produtos'}</div>
-                    {/* <div className="icon-container" onClick={() => setShowForm((prevState) => !prevState)}> */}
-                        {/* <span className="text">{!showForm ? 'Adicionar' : 'Voltar'}</span> */}
-                        {!showForm
-                        ? 
-                        <IoMdAddCircle title="Adicionar produto" className="icon" onClick={() => setShowForm(true)} /> 
-                        : 
-                        <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setShowForm(false)} /> }
-                    {/* </div> */}
+                    {!showForm
+                    ? 
+                    <IoMdAddCircle title="Adicionar produto" className="icon" onClick={() => setShowForm(true)} /> 
+                    : 
+                    <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setShowForm(false)} /> }
                 </div>
-                <div className="products-container">
-                    {!showForm ? products && products.map(product=>(
-                        <div 
-                            className="products-card"
-                            key={product.id}
-                            ref={el => ordersRef.current[product.id] = el}
-                            >
-                            <img
-                                className="product-image" 
-                                src={productsImages[product.photoUrl]}
-                                alt="Foto do produto" />
-                            <div className="product-desc">
-                                <h4>{product.name}</h4><br/>
-                                {product.description}<br/><br/>
-                                <div>R$ {product.price}</div>
-                            </div>
-                            <button onClick={() => deleteProduct(product)}>Remover</button>
+                {!showForm && (
+                    <>
+                        {/* Barra fixa de categorias */}
+                        <div className="categories-bar" title="Clique para ver os produtos">
+                            {groupedProducts.map(group => (
+                            <h3 
+                                key={group.category} 
+                                onClick={() => setOpenCategory(group.category)}
+                                style={{
+                                    color: openCategory === group.category ? "red" : "black"}}>
+                                {group.category}
+                            </h3>
+                            ))}
                         </div>
+                        {/* BUSCA POR PRODUTO */}
+                        <input 
+                            style={{margin:10, width:'50%'}}
+                            type="text" 
+                            onChange={handleInputSearch}
+                            placeholder="Buscar produto"/>
+                    </>
+                )}
+                {/* Renderizar somente a categoria aberta */}
+                <div className="products-container" ref={productsRef}>
+                    {!showForm ? groupedProducts.map(group => (
+                        openCategory === group.category && (
+                            <div key={group.category}>
+                            {group.items.filter(product => (
+                               product.name.toLocaleLowerCase().includes(searchWord.toLocaleLowerCase()) 
+                            )).map(product => (
+                                <div 
+                                    className="products-card"
+                                    key={product.id}>
+                                    <img
+                                        className="product-image" 
+                                        src={productsImages[product.photoUrl]}
+                                        alt="Foto do produto"/>
+                                    <div className="product-desc">
+                                        <h4>{product.name}</h4><br/>
+                                        {product.description}<br/><br/>
+                                        <div>R$ {Number(product.price).toFixed(2)}</div>
+                                    </div> 
+                                    <button onClick={() => deleteProduct(product)}>
+                                        Remover
+                                    </button>                                 
+                                </div>
+                            ))}
+                            {group.items.filter(product =>(
+                                product.name.toLocaleLowerCase().includes(searchWord.toLowerCase())
+                            )).length === 0 && (
+                                <p>Nenhum produto encontrado nessa categoria</p>
+                            )}
+                            </div>
+                        )
                     )) : <InsertProduct/>}
                 </div>
             </div>

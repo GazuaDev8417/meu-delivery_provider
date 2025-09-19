@@ -1,12 +1,19 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BsFillPersonFill } from 'react-icons/bs'
-import { Container, Modal, Overlay } from './styled'
+import { Container } from './styled'
 import { BASE_URL } from '../../constants/url'
 import axios from 'axios'
 import Header from '../../components/Header';
 import { Order, Restaurant } from '../../types/types'
 
+
+
+
+type GroupedProducts = {
+  state: string
+  items: Order[]
+}
 
 
 const Orders = ()=>{
@@ -23,8 +30,7 @@ const Orders = ()=>{
         shipping:0
     })
     const [orders, setOrders] = useState<Order[]>([])
-    const [open, setOpen] = useState<boolean>(false)
-    const [paymentMethod, setPaymentMethod] = useState<string>('dinheiro')
+    const [openState, setOpenState] = useState<string | null>(null)
 
    
 
@@ -42,11 +48,6 @@ const Orders = ()=>{
     }, [])
 
 
-    const handleChange = (e:ChangeEvent<HTMLSelectElement>)=>{
-        setPaymentMethod(e.target.value)
-    }
-
-
     const getRestaurant = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
@@ -56,7 +57,6 @@ const Orders = ()=>{
         }).catch(e => alert(e.response.data))
     }
 
-
     const allOrders = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
@@ -64,24 +64,8 @@ const Orders = ()=>{
 
         axios.get(`${BASE_URL}/restaurant/orders`, headers).then(res=>{
             setOrders(res.data)
+            console.log(res.data)
         }).catch(e => alert(e.response.data))
-    }
-
-
-    const markOrder = (id:string)=>{
-        const headers = {
-            headers: { Authorization: localStorage.getItem('token') }
-        }
-        const body = {
-            paymentmethod: paymentMethod
-        }
-
-        axios.patch(`${BASE_URL}/finish_order/${id}`, body, headers)
-            .then(()=>{
-                allOrders()
-                setOpen(false)
-            })
-            .catch(e => e.response.data)
     }
 
     const removeOrder = (order:Order)=>{
@@ -96,6 +80,20 @@ const Orders = ()=>{
                 .catch(e => e.response.data)
         }
     }
+
+    const groupedByState = (orders:Order[]):GroupedProducts[]=>{
+        const grouped = orders.reduce((acc, order)=>{
+            if(!acc[order.state]){
+                acc[order.state] = { state: order.state, items: []}
+            }
+            acc[order.state].items.push(order)
+            return acc
+        }, {} as Record<string, GroupedProducts>)
+
+        return Object.values(grouped)
+    }
+
+    const groupedOrders = groupedByState(orders)
 
 
     
@@ -112,25 +110,25 @@ const Orders = ()=>{
             <h1>{restaurant.name}</h1>            
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div id='history' className="order-history">Lista de Pedidos</div>
+            {/* Barra fixa de categorias */}
+            <div className="categories-bar" title="Clique para ver os produtos">
+                {groupedOrders.map(group => (
+                <h3 
+                    key={group.state} 
+                    onClick={() => setOpenState(group.state)}
+                    style={{
+                        color: openState === group.state ? "red" : "black"}}>
+                    {group.state === 'REQUESTED' ? 'Pendente' : 'Concluído'}
+                </h3>
+                ))}
+            </div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="card-container">
-                {orders.length > 0 ? orders.map(order=>(
-                    <>
-                        <Overlay active={open} onClick={() => setOpen(false)} />
-                        <Modal active={open}>
-                            <h3>Método de pagamento: {paymentMethod || 'Nenhum'}</h3>
-                            <select value={paymentMethod} onChange={handleChange}>
-                                <option value="dinheiro">Dinheiro</option>
-                                <option value="pix">Pix</option>
-                                <option value="credito">Crédito</option>
-                                <option value="debito">Débito</option>
-                            </select>
-                            <button 
-                                className='end-payment' 
-                                onClick={() => markOrder(order.id)}>
-                                Enviar
-                            </button>
-                        </Modal>
+                {groupedOrders
+                    .filter(group => group.state === openState)
+                    .flatMap(group => group.items)
+                    .map(order =>(
+                        <div key={order.id}>
                         <div className="card" key={order.id}>
                             <div className="card-content">
                                 <div className="rest-name">{order.product} R$ {order.price}</div>
@@ -148,15 +146,6 @@ const Orders = ()=>{
                                 }
                             </div>
                             <div className='btn-container'>
-                                <button className='sentMarked' onClick={()=>{
-                                    if(order.state === 'REQUESTED'){
-                                            setOpen(true)
-                                        }else{
-                                            
-                                        }
-                                    }}>
-                                    {order.state === 'REQUESTED' ? 'Marcar como enviado' : 'Desmarcar'}
-                                </button>
                                 {order.state === 'FINISHED' && (
                                     <button 
                                         className="remove-btn"
@@ -164,8 +153,9 @@ const Orders = ()=>{
                                 )}
                             </div>
                         </div>
-                    </>
-                )) : <div>Ainda não há registro de pedidos</div> }
+                    </div>                    
+                ))}
+                {orders.length === 0 && <div>Ainda não há registro de pedidos</div>}
             </div>
         </Container>
         </>

@@ -58,6 +58,20 @@ export const Container = styled.div`
         transform: scale(.9);
     }
 
+    .categories-bar {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .categories-bar h3 {
+        white-space: nowrap;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
     hr{
         width:'100%';
         background:'lightgray';
@@ -140,34 +154,4 @@ export const Container = styled.div`
             font-size: 1.2rem;
         }
     }
-`
-
-export const Overlay = styled.div<{ active: boolean }>`
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, .5);
-    display: ${({ active }) => (active ? 'block' : 'none')};
-    opacity: ${({ active }) => (active ? 1 : 0)};
-    transition: opacity .3s ease;
-    z-index: 900;
-`
-export const Modal = styled.div<{ active: boolean }>`
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    gap: 15px;
-    background: lightgray;
-    border: 2px solid;
-    border-radius: 5px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(${({ active }) => (active ? 1 : 0)});
-    opacity: ${({ active }) => (active ? 1 : 0)};
-    z-index: 901;
-    transition: transform .3s ease-in-out, opacity .3s ease;
-    pointer-events: ${({ active }) => (active ? "auto" : "none")};
-    will-change: transform, opacity;
-
-
 `

@@ -38,6 +38,20 @@ export const Container = styled.div`
         margin: 20px 10px 10px;
     }
 
+    .categories-bar {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .categories-bar h3 {
+        white-space: nowrap;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
     .menuTitle-container{
         display: flex;
         align-items: center;
