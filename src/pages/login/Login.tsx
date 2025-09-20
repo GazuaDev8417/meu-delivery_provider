@@ -23,7 +23,7 @@ const Login:FC = ()=>{
     const token = localStorage.getItem('token')
     //const clientData = localStorage.getItem('clientData')
     const [form, setForm] = useState<FormData>({
-        email:'disk90@email.com',
+        email:'adm@email.com',
         password:'123456'
     })
     /* const [currentRestaurant, setCurrentRestaurant] = useState<Restaurant>({
@@ -110,10 +110,9 @@ const Login:FC = ()=>{
                     type="text"
                     className="form-input"
                     name="email"
-                    maxLength={18}
                     value={form.email}
                     onChange={onChange}
-                    placeholder="provedor@email.com"
+                    placeholder="name@email.com"
                     autoComplete="username"
                     aria-label="email"
                     required/>
