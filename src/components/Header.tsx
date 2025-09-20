@@ -1,8 +1,5 @@
-import { ReactNode, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { ReactNode } from 'react'
 import styled from 'styled-components'
-import Logo from '../imgs/logo-future-eats-invert.png'
-
 
 const Container = styled.div`
     position: fixed;
@@ -25,26 +22,9 @@ interface HeaderProps{
 
 
 const Header = (props:HeaderProps)=>{
-    const navigate = useNavigate()
-    const imageRef = useRef<HTMLImageElement | null>(null)
-
-    const hideImage = ()=>{
-        if(imageRef.current && window.scrollY > 0){
-            imageRef.current.style.display = 'none'
-        }else if(imageRef.current && window.scrollY < 100){
-            imageRef.current.style.display = 'block'
-        }
-    }
-    
-    window.addEventListener('scroll', hideImage)
-    
-
-
-
     return(
         <Container>
             {props.leftIcon}
-            <img src={Logo} alt="Logo" ref={imageRef} onClick={() => navigate('/ifuture_provider/orders')} />
             {props.rightIcon}
         </Container>
     )

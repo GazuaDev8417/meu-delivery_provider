@@ -32,6 +32,10 @@ const GlobalStyle = createGlobalStyle`
     padding-left: 10px;
   }
 
+  input[type='file']{
+    border: none;
+  }
+
   button{
       border: none;
       border-radius: 5px;

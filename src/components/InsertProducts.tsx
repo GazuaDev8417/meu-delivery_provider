@@ -34,11 +34,13 @@ const Container = styled.div`
         width: 30vw;
     }
 
-    .eye-icon{
-        position: absolute;
-        right: 3%;
-        font-size: 1.2rem;
-        cursor: pointer;
+    .photo-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid gray;
+        border-radius: 5px;
     }
 
     .btn-container{
@@ -89,115 +91,6 @@ const Container = styled.div`
             width: 65vw;
         }
     }
-
-/* HEIGTH */
-    @media(max-height: 2500px){
-        .eye-icon{
-            top: 30.5%;
-        }
-    }
-
-    @media(max-height: 2300px){
-        .eye-icon{
-            top: 31%;
-        }
-    }
-
-    @media(max-height: 2170px){
-        .eye-icon{
-            top: 31.5%;
-        }
-    }
-
-    @media(max-height: 1900px){
-        .eye-icon{
-            top: 32.5%;
-        }
-    }
-
-    @media(max-height: 1631px){
-        .eye-icon{
-            top: 34%;
-        }
-    }
-
-    @media(max-height: 1346px){
-        .eye-icon{
-            top: 35.5%;
-        }
-    }
-
-    @media(max-height: 1160px){
-        .eye-icon{
-            top: 37%;
-        }
-    }
-
-    @media(max-height: 992px){
-        .eye-icon{
-            top: 39%;
-        }
-    }
-
-    @media(max-height: 910px){
-        .eye-icon{
-            top: 42.5%;
-        }
-    }
-
-    @media(max-height: 780px){
-        .eye-icon{
-            top: 42.5%;
-        }
-    }
-/* ------------------------------ */
-    @media(max-height: 700px){
-        .eye-icon{
-            top: 45.5%;
-        }
-    }
-
-    @media(max-height: 605px){
-        .eye-icon{
-            top: 48%;
-        }
-    }
-
-    @media(max-height: 560px){
-        .eye-icon{
-            top: 50%;
-        }
-    }
-
-    @media(max-height: 500px){
-        .eye-icon{
-            top: 53%;
-        }
-    }
-
-    @media(max-height: 440px){
-        .eye-icon{
-            top: 56.5%;
-        }
-    }
-
-    @media(max-height: 409px){
-        .eye-icon{
-            top: 59%;
-        }
-    }
-
-    @media(max-height: 376px){
-        .eye-icon{
-            top: 62%;
-        }
-    }
-
-    @media(max-height: 348px){
-        .eye-icon{
-            top: 65%;
-        }
-    }
 `
 
 
@@ -206,7 +99,7 @@ interface Form{
     category:string
     description:string
     name:string
-    photoUrl:string
+    /* photoUrl:File | string, */
     price:number
 }
 
@@ -217,15 +110,15 @@ const InsertProduct = ()=>{
         category:'',
         description:'',
         name:'',
-        photoUrl:'',
+        /* photoUrl:'', */
         price:0
     })
 
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
-
-        setForm({...form, [name]: value})
+        
+        setForm(prev => ({ ...prev, [name]: value }))
     }
 
 
@@ -239,11 +132,11 @@ const InsertProduct = ()=>{
     const registProduct = (e:FormEvent<HTMLFormElement>):void=>{
         e.preventDefault()
         
+        
         const body = {
             category: form.category,
             description: form.description,
             name: form.name,
-            photoUrl: form.photoUrl,
             price: form.price
         }
 
@@ -261,7 +154,7 @@ const InsertProduct = ()=>{
             category:'',
             description:'',
             name:'',
-            photoUrl:'',
+            /* photoUrl:'', */
             price:0
         })
     }
@@ -293,14 +186,17 @@ const InsertProduct = ()=>{
                     onChange={onChange} 
                     placeholder="Nome do produto"
                     required/>
-                <input
-                    type="text"
-                    className="form-input"
-                    name="photoUrl"
-                    value={form.photoUrl}
-                    onChange={onChange} 
-                    placeholder="Url da foto"
-                    required/>
+                {/* <div className="photo-container">
+                    <label htmlFor="photo">Imagem do produto</label>
+                    <input
+                        id='photo'
+                        type="file"
+                        className="form-input"
+                        name="photoUrl"
+                        onChange={onChange} 
+                        placeholder="Url da foto"
+                        required/>
+                </div> */}
                 <input
                     type="text"
                     className="form-input"
