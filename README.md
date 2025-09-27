@@ -1,55 +1,51 @@
-# Ifuture Provider
-Aplicação Ifuture para os provedores de serviços de entrega de alimentos. Nessa versão o aplicativo simula a plataforma dos fornecedores do serviço.
+# Meu Delivery Provider 🍹🥤
 
-## Login
+Aplicação **fullstack** desenvolvida para simular um sistema de delivery do lado provedor. A aplicação é para gerenciar produtos, clientes e entregas. 
 
-Como se trata de uma demonstração resolvi deixar, como valor padrão dos inputs, as credenciais dos usuários(fornecedores). De maneira que, cada vez que a página é carregada, uma credencial válida é aleatoriamente posta.
+---
 
-<img src="./readmeImg/tela_login.png">
+## 🚀 Tecnologias Utilizadas
 
-## Lista de pedidos
+### Frontend
+- **ReactTS** com navegação por rotas
+- **Styled-components** na estilização
+- **React-Router-Dom** para gerenciar o roteamento e navegação entre páginas
 
-Na tela inicial temos a lista dos pedidos para ser entregue. Cada pedido vem especificando o produto com seu valor, quantidade, momento da solicitação e endereço para entrega. Clicando no ícone do canto superior esquerdo o usuário é direcionado para lista de pedidos finalizados, o hitórico de pedidos.
+### Backend
+- **Node.js + Express**
+- API hospedada em **Vercel**
+- Banco de dados relacional (**PostgreSQL/NEON**)
 
-<div style="display: flex; justify-content: space-between; align-items: center; ">
-  <div>
-    <img src="./readmeImg/pedidos.png" width="500">
-  </div>
-  <br>
-  <div>
-    <img src="./readmeImg/pedidos_historico.png" width="500"><br>
-  </div>
-</div>
+---
 
-## Detalhes do pedido
+## ✨ Funcionalidades
+- Restaurante e seus produtos disponíveis, dividos por categoria
+- Sistema de carrinho e checkout
+- Pagamento online simulado via **Mercado Pago**
+- Consumo de API própria hospedada em nuvem
+- Conta de administrador com checkout de clientes e produtos
 
-Ao clicar no card de algum pedido o usuário tem acesso aos detelhes do mesmo, como mostra a figura abaixo:
+---
 
-<img src="./readmeImg/detatlhe_pedido.png">
+## 📂 Estrutura do Projeto
+- **Frontend** → Aplicação React com navegação, estilização, responsividade e integrações externas  
+- **Backend** → API REST que gerencia o restaurante seus produtos e pedidos  
 
-Clicando no link "Cliente", o usuário(fornecedor), verá novamente a tela de login, onde serão requisitadas suas credências de acesso para poder ver o cadastro do usuário. Nesse caso, tratando-se de um projeto demonstrativo, as credenciais do fornecedor em questão já são os valores padrões dos campos de login.
+---
 
+## 🔑 Credenciais de usuários teste
+### Usuário Normal
 
-## Dados do usuário
+- **Email**: visitante@email.com
+- **Seha**: 123456
 
-Aqui está o perfil do usuário cadastrado. Com seu email, endereço e histórico de pedidos realizados.
+### Usuário ADM
 
-<img src="./readmeImg/perfil_usuario.png">
+- **Email**: adm@email.com
+- **Senha**: 123456
 
-## Dados do fornecedor
+## 🔗 Links
+- 🌐 Aplicação: [Meu Delivery](https://gazuadev8417.github.io/meu-delivery/)   
+- 📄 Documentação da API: [Postman Docs](https://documenter.getpostman.com/view/48121909/2sB3HjM1z7)  
 
-O perfil do fornecedor. Com sua categoria de serviço no título, uma pequena descrição e lista de produtos do cardápio principal, onde é possível remover e/ou adicionar novos produtos.
-
-<img src="./readmeImg/detalhe_fornecedor.png" height="400" width='1200'><br>
-<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
-  <div>
-    <img src="./readmeImg/cardapio.png" width="500">
-  </div>
-  <br>
-  <div>
-    <img src="./readmeImg/add_produtos.png" width="500"><br>
-  </div>
-</div>
-
-<br><br>
-> https://gazuadev8417.github.io/ifuture_provider
+---
