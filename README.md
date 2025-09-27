@@ -20,32 +20,20 @@ Aplicação **fullstack** desenvolvida para simular um sistema de delivery do la
 
 ## ✨ Funcionalidades
 - Restaurante e seus produtos disponíveis, dividos por categoria
-- Sistema de carrinho e checkout
-- Pagamento online simulado via **Mercado Pago**
+- Formulário para adicionar novos produtos
+- Remoção de produtos
+- Lista com os pedidos dos clientes
+- Perfil dos clientes com seus pedidos ativos e finalizados
 - Consumo de API própria hospedada em nuvem
-- Conta de administrador com checkout de clientes e produtos
 
 ---
 
 ## 📂 Estrutura do Projeto
-- **Frontend** → Aplicação React com navegação, estilização, responsividade e integrações externas  
-- **Backend** → API REST que gerencia o restaurante seus produtos e pedidos  
+Aplicação React com navegação, estilização, responsividade 
 
 ---
 
-## 🔑 Credenciais de usuários teste
-### Usuário Normal
-
-- **Email**: visitante@email.com
-- **Seha**: 123456
-
-### Usuário ADM
-
-- **Email**: adm@email.com
-- **Senha**: 123456
-
 ## 🔗 Links
-- 🌐 Aplicação: [Meu Delivery](https://gazuadev8417.github.io/meu-delivery/)   
-- 📄 Documentação da API: [Postman Docs](https://documenter.getpostman.com/view/48121909/2sB3HjM1z7)  
+- 🌐 Aplicação: [Meu Delivery Provider](https://gazuadev8417.github.io/meu-delivery_provider/)  
 
 ---
