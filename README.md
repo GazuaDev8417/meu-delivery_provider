@@ -10,6 +10,8 @@ Aplicação **fullstack** desenvolvida para simular um sistema de delivery do la
 - **ReactTS** com navegação por rotas
 - **Styled-components** na estilização
 - **React-Router-Dom** para gerenciar o roteamento e navegação entre páginas
+- **Axios** para realizar as requisições HTTP
+- **Bcryptjs** para criptografia de senha
 
 ### Backend
 - **Node.js + Express**
@@ -19,7 +21,7 @@ Aplicação **fullstack** desenvolvida para simular um sistema de delivery do la
 ---
 
 ## ✨ Funcionalidades
-- Restaurante e seus produtos disponíveis, dividos por categoria
+- Restaurante e seus produtos disponíveis dividos por categoria
 - Formulário para adicionar novos produtos
 - Remoção de produtos
 - Lista com os pedidos dos clientes
