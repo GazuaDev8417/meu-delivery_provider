@@ -43,7 +43,7 @@ const Orders = ()=>{
         const token = localStorage.getItem('token')
 
         if(!token){
-            navigate('/meu-delivery-provider')
+            navigate('/')
         }
     }, [])
 
@@ -102,7 +102,7 @@ const Orders = ()=>{
         <>
         <Header
             rightIcon={
-                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/meu-delivery-provider/profile')} />
+                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/profile')} />
             }
             leftIcon={
                 <div/>
@@ -153,7 +153,7 @@ const Orders = ()=>{
                                 <button
                                     onClick={() =>{
                                         localStorage.setItem('userId', order.client)
-                                        navigate('/meu-delivery-provider/client_data')
+                                        navigate('/client_data')
                                     }} 
                                     className="check-client-btn">
                                     Ver cliente

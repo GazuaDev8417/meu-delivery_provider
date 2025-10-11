@@ -51,7 +51,7 @@ const Login:FC = ()=>{
 
     useEffect(()=>{        
         if(token){
-            navigate('/meu-delivery-provider/orders')
+            navigate('/orders')
         }/* else if(token && clientData){
             getRestaurant()
         } */     
@@ -85,7 +85,7 @@ const Login:FC = ()=>{
 
         axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
             localStorage.setItem('token', res.data)
-            navigate('/meu-delivery-provider/orders')
+            navigate('/orders')
             /* if(currentRestaurant.id !== res.data){
                 return alert('Credenciais inválidas!')
             }else{

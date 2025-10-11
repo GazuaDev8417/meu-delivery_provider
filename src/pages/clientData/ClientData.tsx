@@ -36,7 +36,7 @@ const ClientData = ()=>{
 
     useEffect(()=>{
         if(!token){
-            navigate('/meu-delivery-provider')
+            navigate('/')
         }
     }, [])
 
@@ -70,7 +70,7 @@ const ClientData = ()=>{
                 <div />
             }
             leftIcon={
-                <MdFeed className="header-icon" onClick={()=> navigate('/meu-delivery-provider/orders')}/>
+                <MdFeed className="header-icon" onClick={()=> navigate('/orders')}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            
