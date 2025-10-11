@@ -36,6 +36,6 @@ Aplicação React com navegação, estilização, responsividade
 ---
 
 ## 🔗 Links
-- 🌐 Aplicação: [Meu Delivery Provider](https://gazuadev8417.github.io/meu-delivery_provider/)  
+- 🌐 Aplicação: [Meu Delivery Provider](https://meu-delivery-provider.vercel.app/)  
 
 ---
