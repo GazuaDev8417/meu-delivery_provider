@@ -17,11 +17,11 @@ const NotFound = () =>(
 const Router = ()=>{
     return(
         <Routes>
-            <Route path="/meu-delivery-provider" element={<Login/>} />
-            <Route path="/meu-delivery-provider/signup" element={<Signup/>} />
-            <Route path="/meu-delivery-provider/orders" element={<Orders/>} />
-            <Route path="/meu-delivery-provider/client_data" element={<ClientData/>} />
-            <Route path="/meu-delivery-provider/profile" element={<Profile/>} />
+            <Route path="/" element={<Login/>} />
+            <Route path="/signup" element={<Signup/>} />
+            <Route path="/orders" element={<Orders/>} />
+            <Route path="/client_data" element={<ClientData/>} />
+            <Route path="/profile" element={<Profile/>} />
             <Route path="*" element={<NotFound/>} />
         </Routes>
     )
