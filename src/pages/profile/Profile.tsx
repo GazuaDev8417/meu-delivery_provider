@@ -144,7 +144,7 @@ const Profile:FC = ()=>{
             <div className="card">
                 <div className="rest-name">{menu.category}</div>
                 <img 
-                    src={`/meu-delivery-provider/imgs/restaurants/${menu.logourl}`}
+                    src={`/imgs/restaurants/${menu.logourl}`}
                     alt="Imagem do restaurante"
                     className="image"/>                
                 <div className="desc">

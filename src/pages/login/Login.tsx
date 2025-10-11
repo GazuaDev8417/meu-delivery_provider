@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react"
-import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
@@ -101,7 +100,6 @@ const Login:FC = ()=>{
     
     return(
         <Container>
-            <img src={ifutureLogo} alt="imagem"/>
             <div className="title">Login para provedores</div>
             <form onSubmit={login}>
                 <label htmlFor="email" className="sr-only">Email</label>
