@@ -11,12 +11,14 @@ Aplicação **fullstack** desenvolvida para simular um sistema de delivery do la
 - **Styled-components** na estilização
 - **React-Router-Dom** para gerenciar o roteamento e navegação entre páginas
 - **Axios** para realizar as requisições HTTP
-- **Bcryptjs** para criptografia de senha
 
 ### Backend
 - **Node.js + Express**
 - API hospedada em **Vercel**
 - Banco de dados relacional (**PostgreSQL/NEON**)
+- **Bcryptjs** para criptografia de senha
+- **Jsonwebtoken** para geração de token usado na autenticação do usuário
+- **CORS** controle de acesso onde somente o domínio do frontend tem permissão de acesso
 
 ---
 
