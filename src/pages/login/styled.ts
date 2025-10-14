@@ -8,15 +8,16 @@ export const Container = styled.div`
     justify-content: center;
     height: 100vh;
     padding: 1rem;
-
-    img{
-        width: 120px;
-        margin-bottom: 1rem;
+    
+    @media(max-width: 768px){
+        justify-content: flex-start;
+        margin-top: 10vh;
     }
     
     .title{
-        font-size: 1.5rem;
-        margin: 10vh 0 5vh;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        font-weight: 500;
     }
 
     form{
@@ -40,18 +41,14 @@ export const Container = styled.div`
         border: 0;
     }
 
-
     .form-input{
         padding: .75rem 1rem;
         border: 1px solid #ccc;
         border-radius: 8px;
         font-size: 1rem;
         width: 100%;
+        margin: 5px;
         box-shadow: 1px 1px 4px;
-    }
-
-    .input-execption{
-        width: 320px;
     }
 
     .form-input:focus {
@@ -67,8 +64,8 @@ export const Container = styled.div`
     .eye-icon{
         position: absolute;
         top: 50%;
-        transform: translateY(-30%);
-        right: 1rem;
+        right: .7rem;
+        transform: translateY(100%);
         font-size: 1.2rem;
         cursor: pointer;
         color: #666;
@@ -116,45 +113,9 @@ export const Container = styled.div`
     }
 
 /* MEDIA QUERY */
-    @media(max-width: 930px){
-        justify-content: flex-start;
-        
-        .form-input{
-            width: 40vw;
-        }
-
+    @media(max-width: 320px){
         .btn-container{
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        button{
-            width: 40vw;
-        }
-    }
-
-    @media(max-width: 690px){
-        .form-input{
-            width: 50vw;
-        }
-
-        button{
-            width: 50vw;
-        }
-    }
-
-    @media(max-width: 510px){
-        .title{
-            font-size: 18px;
-        }
-
-        .form-input{
-            width: 65vw;
-        }
-
-        button{
-            width: 65vw;
+            width: 100%;
         }
     }
 

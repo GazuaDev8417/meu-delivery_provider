@@ -100,31 +100,30 @@ const Login:FC = ()=>{
     
     return(
         <Container>
-            <div className="title">Login para provedores</div>
-            <form onSubmit={login}>
-                <label htmlFor="email" className="sr-only">Email</label>
-                <input
-                    id="email"
-                    type="text"
-                    className="form-input"
-                    name="email"
-                    value={form.email}
-                    onChange={onChange}
-                    placeholder="name@email.com"
-                    autoComplete="username"
-                    aria-label="email"
-                    required/>
-                <label htmlFor="password" className="sr-only">Senha</label>
+            <div className="title">Login</div>
+            <form onSubmit={login}>               
                 <div className="input-icon-container">
+                    <label htmlFor="login-email" className="sr-only">Email</label>
                     <input
-                        id="password"
+                        id="login-email"
+                        type="email"
+                        className="form-input"
+                        name="email"
+                        value={form.email}
+                        onChange={onChange}
+                        placeholder="name@email.com"
+                        aria-label="Endereço de email"
+                        autoFocus 
+                        required/>
+                    <label htmlFor="login-password" className="sr-only">Senha</label>
+                    <input
+                        id="login-password"
                         type={!showPass ? 'password' : 'text'}
-                        className="form-input input-execption"
                         name="password"
+                        className="form-input"
                         value={form.password}
                         onChange={onChange} 
                         placeholder="Sua senha"
-                        autoComplete="current-password"
                         aria-label="Senha"
                         required/>
                     {
@@ -139,7 +138,7 @@ const Login:FC = ()=>{
                 </div>
             </form>
             {/* <p>
-                Não possui cadastro? clique <Link to='/meu-delivery-provider/signup'> aqui</Link>
+                Não possui cadastro? clique <Link to='/meu-delivery/signup'> aqui</Link>
             </p> */}
         </Container>
     )

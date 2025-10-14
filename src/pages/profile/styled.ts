@@ -3,26 +3,25 @@ import styled from 'styled-components'
 
 
 
-
 export const Container = styled.div`
-    margin: 25vh 0 3vh;
+    margin-top: 12vh;
+
     h1{
         text-align: center;
         margin: 5vh 0 3vh;
     }
-
     .card{
         display: flex;
         flex-direction: column;
         align-items: center;
         border: 1px solid red;
         width: 70vw;
-        margin: auto;
+        margin: 0 auto 10vh;
     }
 
     .image{
-        width: 50vw;
-        height: 50vh;
+        /* width: 50vw;
+        height: 50vh; */
         margin-top: 20px;
         box-shadow: 2px 2px 4px;
         border-radius: 10px;
@@ -36,6 +35,33 @@ export const Container = styled.div`
         text-align: center;
         font-size: 1.5rem;
         margin: 20px 10px 10px;
+    }
+
+    .menuTitle-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+    }
+
+    .icon{
+        cursor: pointer;
+    }
+
+    .products{
+        border-bottom: 1px solid gray;
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .product-desc{
+        margin: 10px;
+    }
+
+    .products-container{
+        max-height: 400px;
+        overflow-y: auto;
     }
 
     .categories-bar {
@@ -52,58 +78,10 @@ export const Container = styled.div`
         transition: color 0.2s;
     }
 
-    .menuTitle-container{
-        display: flex;
-        align-items: center;
-        width: 90%;
-        justify-content: space-between;
-    }
-
-    /* .icon-container{
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        background-color: gray;
-        padding: 7px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 4px;
-        cursor: pointer;
-        transition: .5s;
-    }
-
-    .icon-container:active{
-        transform: scale(.8);
-    }
-
-    .icon-container:hover .text{
-        color: whitesmoke;
-        transition: .5s;
-    } */
-
-    .icon{
-        font-size: 25px;
-        cursor: pointer;
-        transition: .5s;
-    }
-
-    .icon:hover{
-        color: #dc2b2b;
-    }
-
-    .products-container{
-        max-height: 40vh;
-        overflow-y: auto;
-    }
-
-    .products{
-        border-bottom: 1px solid gray;
-        text-align: center;
-        padding: 10px;
-        margin: 10px;
-    }
-
-    .product-desc{
-        margin: 10px;
+    @media(hover: hover) and (pointer: fine){
+        .categories-bar h3:hover {
+            color: red !important;
+        }
     }
 
     .products-card{
@@ -115,10 +93,14 @@ export const Container = styled.div`
         border-radius: 10px;
         box-shadow: 2px 2px 4px;
         margin: 10px;
+        padding: 10px;
     }
 
-    .product-image{	
+    .product-image{
+        /* width: 100px;
+        height: 130px; */	
         border-radius: 10px;
+        /* box-shadow: 2px 2px 4px; */
     }
 
     .select-btn-container{
@@ -128,8 +110,10 @@ export const Container = styled.div`
     }
 
     .products-card button{
-        padding: 5px;
+        padding: 10px;
         color: #fff;
+        font-size: 1.2rem;
+        width: 100px;
     }
 
 /* MEDIA QUERIES */
@@ -160,7 +144,7 @@ export const Container = styled.div`
         }
 
         .product-image{
-            width: 100%;
+            width: 30%;
         }
 
         .select-btn-container{
@@ -177,8 +161,19 @@ export const Container = styled.div`
 
     @media(max-width: 620px){
         .image{
-            height: 80%;
+            /* height: 80%; */
+            height: 30vh;
         }
+
+        .categories-bar{
+            max-width: 250px;
+            overflow-x: scroll;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media(max-width: 400px){
+        margin-top: 15vh;
     }
 
 `
