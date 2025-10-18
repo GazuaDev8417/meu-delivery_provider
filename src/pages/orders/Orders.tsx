@@ -64,7 +64,7 @@ const Orders = ()=>{
 
         axios.get(`${BASE_URL}/restaurant/orders`, headers).then(res=>{
             setOrders(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.log(e.response.data))
     }
 
     const removeOrder = (order:Order)=>{
