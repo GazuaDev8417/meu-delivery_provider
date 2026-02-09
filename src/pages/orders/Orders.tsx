@@ -10,9 +10,10 @@ import { Order, Restaurant } from '../../types/types'
 
 
 
-type GroupedProducts = {
+interface GroupedProducts {
   state: string
   items: Order[]
+  total: number
 }
 
 
@@ -83,9 +84,16 @@ const Orders = ()=>{
     const groupedByState = (orders:Order[]):GroupedProducts[]=>{
         const grouped = orders.reduce((acc, order)=>{
             if(!acc[order.state]){
-                acc[order.state] = { state: order.state, items: []}
+                acc[order.state] = {
+                    state: order.state, 
+                    items: [],
+                    total: 0
+                }
             }
+
             acc[order.state].items.push(order)
+            acc[order.state].total += Number(order.price) * Number(order.quantity)
+
             return acc
         }, {} as Record<string, GroupedProducts>)
 
@@ -94,6 +102,7 @@ const Orders = ()=>{
 
     const groupedOrders = groupedByState(orders)
 
+/* {order.address?.substring(order.address.lastIndexOf(',') + 1, order.address.length)} */
     
 
 
@@ -129,43 +138,45 @@ const Orders = ()=>{
             <div className="card-container">
                 {groupedOrders
                     .filter(group => group.state === openState)
-                    .flatMap(group => group.items)
-                    .map(order =>(
-                        <div key={order.id}>
-                        <div className="card" key={order.id}>
-                            <div className="card-content">
-                                <div className="rest-name">{order.product}</div>
-                                R$ {order.price} <br />
-                                <b>Pedido feito em:</b> {order.moment} <br/>
-                                <b>Quantidade:</b> {order.quantity}<br/>
-                                <b>Total:</b> R$ {order.total}<br/>
-                                <b>Endereço:</b> {order.address?.substring(0, order.address.lastIndexOf(','))}<br/>
-                                <b>Falar com:</b> {order.address?.substring(order.address.lastIndexOf(',') + 1, order.address.length)}<br/>
-                                <b>Situação:</b> {order.state === 'REQUESTED' ? 'Para entregar' : 'Finalizado'}<br />
-                                {
-                                    order.state === 'FINISHED' ? (
-                                    <><b>Método de pagamento:</b> {order.paymentmethod}</> 
-                                        
-                                    ) : null
-                                }
-                            </div>
-                            <div className="btn-container">
-                                <button
-                                    onClick={() =>{
-                                        localStorage.setItem('userId', order.client)
-                                        navigate('/client_data')
-                                    }} 
-                                    className="check-client-btn">
-                                    Ver cliente
-                                </button>
-                                {order.state === 'FINISHED' && (
-                                    <button 
-                                        className="remove-btn"
-                                        onClick={() => removeOrder(order)}>Remover</button>
-                                )}
-                            </div>
-                        </div>
-                    </div>                    
+                    .map(group =>(
+                        <div key={group.state}>
+                            <h3 className='total-title'>Total: R$ {group.total.toFixed(2)}</h3>
+                            {group.items.map(order=>(
+                                <div className="card" key={order.id}>
+                                    <div className="card-content">
+                                        <div className="rest-name">{order.product}</div>
+                                        R$ {order.price} <br />
+                                        <b>Pedido feito em:</b> {order.moment} <br/>
+                                        <b>Quantidade:</b> {order.quantity}<br/>
+                                        <b>Total:</b> R$ {order.total}<br/>
+                                        <b>Endereço:</b> {order.address}<br/>
+                                        <b>Falar com:</b> <br/>
+                                        <b>Situação:</b> {order.state === 'REQUESTED' ? 'Para entregar' : 'Finalizado'}<br />
+                                        {
+                                            order.state === 'FINISHED' ? (
+                                            <><b>Método de pagamento:</b> {order.paymentmethod}</> 
+                                                
+                                            ) : null
+                                        }
+                                    </div>
+                                    <div className="btn-container">
+                                        <button
+                                            onClick={() =>{
+                                                localStorage.setItem('userId', order.client)
+                                                navigate('/client_data')
+                                            }} 
+                                            className="check-client-btn">
+                                            Ver cliente
+                                        </button>
+                                        {order.state === 'FINISHED' && (
+                                            <button 
+                                                className="remove-btn"
+                                                onClick={() => removeOrder(order)}>Remover</button>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>                    
                 ))}
                 {orders.length === 0 && <div>Ainda não há registro de pedidos</div>}
             </div>

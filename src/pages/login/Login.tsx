@@ -82,14 +82,15 @@ const Login:FC = ()=>{
             password: form.password
         }
 
-        axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
-            localStorage.setItem('token', res.data)
+        axios.post(`${BASE_URL}/login`, body).then(res=>{
+            if(res.data.role !== 'ADM'){
+                alert('Somente usuários ADM são permitidos')
+                return
+            }
+
+            localStorage.setItem('token', res.data.token)
             navigate('/orders')
-            /* if(currentRestaurant.id !== res.data){
-                return alert('Credenciais inválidas!')
-            }else{
-                navigate('/meu-delivery-provider/client_data')
-            } */
+            
         }).catch(e=>{
             alert(e.response.data)
         })

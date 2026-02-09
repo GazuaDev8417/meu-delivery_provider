@@ -90,6 +90,14 @@ export const Container = styled.div`
         flex-wrap: wrap;
     }
 
+    .total-title{
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+        padding: 8px 0;
+    }
+
     .card{
         border: 1px solid;
         border-radius: 10px;
