@@ -59,15 +59,13 @@ const Orders = ()=>{
     }
 
     const allOrders = ()=>{
-        const headers = {
-            headers: { Authorization: localStorage.getItem('token') }
-        }
-
-        axios.get(`${BASE_URL}/restaurant/orders`, headers).then(res=>{
+        axios.get(`${BASE_URL}/restaurant/orders`, {
+            headers: { Authorization: localStorage.getItem('token') } 
+        }).then(res=>{
             setOrders(res.data)
-        }).catch(e => console.log(e.response.data))
+        }).catch(e => alert(e.response.data))
     }
-
+console.log(orders)
     const removeOrder = (order:Order)=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }

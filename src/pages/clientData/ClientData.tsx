@@ -27,13 +27,13 @@ const ClientData = ()=>{
         complement:''
     })
     const [orders, setOrders] = useState<Order[]>([])
-
-
+    
     useEffect(()=>{
         getProfileByUser()
         orderHistory()
     }, [])
-
+    
+    
     useEffect(()=>{
         if(!token){
             navigate('/')

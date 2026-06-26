@@ -22,7 +22,7 @@ const Login:FC = ()=>{
     const token = localStorage.getItem('token')
     //const clientData = localStorage.getItem('clientData')
     const [form, setForm] = useState<FormData>({
-        email:'adm@email.com',
+        email:'disk90@email.com',
         password:'123456'
     })
     /* const [currentRestaurant, setCurrentRestaurant] = useState<Restaurant>({
@@ -82,15 +82,9 @@ const Login:FC = ()=>{
             password: form.password
         }
 
-        axios.post(`${BASE_URL}/login`, body).then(res=>{
-            if(res.data.role !== 'ADM'){
-                alert('Somente usuários ADM são permitidos')
-                return
-            }
-
-            localStorage.setItem('token', res.data.token)
-            navigate('/orders')
-            
+        axios.post(`${BASE_URL}/login_restaurant`, body).then(res=>{
+            localStorage.setItem('token', res.data)
+            navigate('/orders')            
         }).catch(e=>{
             alert(e.response.data)
         })
