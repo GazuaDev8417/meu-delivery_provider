@@ -2,7 +2,6 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
-import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { Container } from "./styled"
 
@@ -105,9 +104,6 @@ const Signup:FC = ()=>{
     
     return(
         <Container>
-            <img  
-                src={ifutureLogo}
-                alt="imagem"/>
             <div className="title">Registro</div>
             <form onSubmit={signup}>
                 <input

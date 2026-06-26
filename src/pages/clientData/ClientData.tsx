@@ -47,7 +47,7 @@ const ClientData = ()=>{
         axios.get(`${BASE_URL}/profile/${userId}`, {
             headers: { Authorization: localStorage.getItem('token') }
         }).then(res => setUser(res.data))
-        .catch(e => alert(e.response.data))
+        .catch(e => console.log(e.response.data))
     }
 
     const orderHistory = ()=>{
@@ -57,7 +57,7 @@ const ClientData = ()=>{
         
         axios.get(`${BASE_URL}/user/active_orders/${userId}`, headers).then(res=>{
             setOrders(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.log(e.response.data))
     }
 
 
@@ -122,6 +122,7 @@ const ClientData = ()=>{
             </div>
             <div id='history' className="order-history">Pedidos ativos do cliente</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
+            {orders.length === 0 && 'Você não tem pedidos ativos'}
             <div className="card-container">
                 {orders.length > 0 && orders.map(order=>(
                     <div className="card" key={order.id}>
@@ -134,7 +135,7 @@ const ClientData = ()=>{
                             <div style={{ textAlign:'center' }}>
                                 {order.state === 'REQUESTED' ? (
                                     <button onClick={()=> endOrders(order.id)}>Concluir</button>
-                                ) : <button onClick={()=> backToRequested(order.id)}>Voltar</button>}
+                                ) : <button onClick={()=> backToRequested(order.id)}>Voltar para entrega</button>}
                             </div>
                         </div>
                     </div>
