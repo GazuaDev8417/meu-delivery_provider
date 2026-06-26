@@ -22,13 +22,11 @@ const Orders = ()=>{
     const [restaurant, setRestaurant] = useState<Restaurant>({
         address:'',
         category:'',
-        deliveryTime:0,
-        description:'',
+        email:'',
         id:'',
         logourl:'',
-        cnpj:'',
-        name:'',
-        shipping:0
+        name:'',        
+        phone:''
     })
     const [orders, setOrders] = useState<Order[]>([])
     const [openState, setOpenState] = useState<string | null>(null)
