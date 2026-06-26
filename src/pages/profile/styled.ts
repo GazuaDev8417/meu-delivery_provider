@@ -86,14 +86,21 @@ export const Container = styled.div`
 
     .products-card{
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        padding-right: 20px;
         border: 1px solid;
         border-radius: 10px;
         box-shadow: 2px 2px 4px;
         margin: 10px;
         padding: 10px;
+        width: 45vw;
+    }
+
+    .btn-button{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 40vw;
     }
 
     .product-image{
@@ -139,8 +146,16 @@ export const Container = styled.div`
             border: 1px solid;
             border-radius: 10px;
             margin: 10px; */
+            width: 70vw;
             flex-direction: column;
             padding: 10px;
+        }
+
+        .btn-button{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 60vw;
         }
 
         .product-image{

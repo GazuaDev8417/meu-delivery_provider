@@ -1,13 +1,11 @@
 export interface Restaurant{
     address:string
     category:string
-    deliveryTime:number
-    description:string
+    email:string
     id:string
     logourl:string
-    cnpj:string
     name:string
-    shipping:number
+    phone:string
 }
 
 export interface Products{

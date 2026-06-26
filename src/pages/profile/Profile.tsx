@@ -9,6 +9,7 @@ import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import InsertProduct from "../../components/InsertProducts"
+import UpdateProduct from "../../components/UpdateProduct"
 import { productsImages } from "../../constants"
 
 
@@ -19,27 +20,28 @@ type GroupedProducts = {
   items: Products[]
 }
 
+type Screen = 'list' | 'insert' | 'update'
+
 
 const Profile:FC = ()=>{
     const navigate = useNavigate()
     const productsRef = useRef<HTMLDivElement | null>(null)
     const [searchWord, setSearchWord] = useState<string>('')
     const [products, setProducts] = useState<Products[]>([])
-    const [showForm, setShowForm] = useState<boolean>(false)
+    const [screen, setScreen] = useState<Screen>('list')
+    const [selectedProduct, setSelectedProduct] = useState<string>('')
     const [openCategory, setOpenCategory] = useState<string | null>(null)
     const [menu, setMenu] = useState<Restaurant>({
         address:'',
         category:'',
-        deliveryTime:0,
-        description:'',
+        email:'',
         id:'',
         logourl:'',
-        cnpj:'',
         name:'',
-        shipping:0
+        phone:'',
     })
 
-
+console.log(menu)
 
     useEffect(()=>{
         const token = localStorage.getItem('token')
@@ -77,7 +79,7 @@ const Profile:FC = ()=>{
 
     useEffect(()=>{
         restaurantByToken()
-    }, [showForm])
+    }, [screen === 'list'])
 
 
     const groupedByCategory = (products:Products[]):GroupedProducts[]=>{
@@ -146,20 +148,27 @@ const Profile:FC = ()=>{
                 <img 
                     src={`/imgs/restaurants/${menu.logourl}`}
                     alt="Imagem do restaurante"
-                    className="image"/>                
-                <div className="desc">
-                    <p>{menu.description}</p>
-                </div>
+                    className="image"/> 
                 <div className="menuTitle-container">
                     <div></div>
-                    <div className="products">{!showForm ? 'Cardápio Principal' : 'Adicionar produtos'}</div>
-                    {!showForm
-                    ? 
-                    <IoMdAddCircle title="Adicionar produto" className="icon" onClick={() => setShowForm(true)} /> 
-                    : 
-                    <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setShowForm(false)} /> }
+                    <div className="products">
+                        {screen === 'list' && 'Cardápio Principal'}
+                        {screen === 'insert' && 'Adicionar produtos'}
+                        {screen === 'update' && 'Produto a ser editado:'}
+                    </div>
+                    {screen === 'list' && (
+                        <IoMdAddCircle title="Adicionar produto" className="icon" onClick={() => setScreen('insert')} />
+                    )} 
+                    
+                    {screen === 'insert' && (
+                        <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setScreen('list')} />
+                    )}
+
+                    {screen === 'update' && (
+                        <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setScreen('list')} />
+                    )}
                 </div>
-                {!showForm && (
+                {screen === 'list' && (
                     <>
                         {/* Barra fixa de categorias */}
                         <div className="categories-bar" title="Clique para ver os produtos">
@@ -183,7 +192,7 @@ const Profile:FC = ()=>{
                 )}
                 {/* Renderizar somente a categoria aberta */}
                 <div className="products-container" ref={productsRef}>
-                    {!showForm ? groupedProducts.map(group => (
+                    {screen === 'list' && groupedProducts.map(group => (
                         openCategory === group.category && (
                             <div key={group.category}>
                             {group.items.filter(product => (
@@ -192,18 +201,28 @@ const Profile:FC = ()=>{
                                 <div 
                                     className="products-card"
                                     key={product.id}>
-                                    <img
+                                    <>
+                                        <img
                                         className="product-image" 
                                         src={productsImages[product.photoUrl]}
-                                        alt="Foto do produto"/>
-                                    <div className="product-desc">
-                                        <h4>{product.name}</h4><br/>
-                                        {product.description}<br/><br/>
-                                        <div>R$ {Number(product.price).toFixed(2)}</div>
-                                    </div> 
-                                    <button onClick={() => deleteProduct(product)}>
-                                        Remover
-                                    </button>                                 
+                                        /* alt="Foto do produto" *//>
+                                        <div className="product-desc">
+                                            <h4>{product.name}</h4><br/>
+                                            {product.description}<br/><br/>
+                                            <div>R$ {Number(product.price).toFixed(2)}</div>
+                                        </div>
+                                    </>
+                                    <div className="btn-button">
+                                        <button onClick={()=>{
+                                            setSelectedProduct(product.id)
+                                            setScreen('update')
+                                        }} >
+                                            Editar
+                                        </button>
+                                        <button onClick={() => deleteProduct(product)}>
+                                            Remover
+                                        </button>
+                                    </div>                                 
                                 </div>
                             ))}
                             {group.items.filter(product =>(
@@ -213,7 +232,15 @@ const Profile:FC = ()=>{
                             )}
                             </div>
                         )
-                    )) : <InsertProduct/>}
+                    ))}
+
+                    {screen === 'insert' && (
+                        <InsertProduct/>
+                    )}
+
+                    {screen === 'update' && selectedProduct && (
+                        <UpdateProduct product={selectedProduct} />
+                    )}
                 </div>
             </div>
         </Container>

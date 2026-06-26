@@ -1,7 +1,8 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../constants/url'
 import styled from 'styled-components'
+import { Products } from '../types/types'
 
 
 
@@ -43,6 +44,13 @@ const Container = styled.div`
         border-radius: 5px;
     }
 
+    .product-content{
+        border: 1px solid;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
     .btn-container{
         display: flex;
         align-items: center;
@@ -73,6 +81,10 @@ const Container = styled.div`
 
         .btn-container{
             width: 65vw;
+        }
+
+        .product-content{
+            margin-top: -15px;
         }
     }
 
@@ -107,9 +119,22 @@ interface Form{
     price:number
 }
 
+interface ProductId{
+    product:string
+}
 
 
-const InsertProduct = ()=>{
+
+const UpdateProduct = ({ product }:ProductId)=>{
+    const [item, setItem] = useState<Products>({
+        category:'',
+        description:'',
+        id:'',
+        name:'',
+        photoUrl:'',
+        price:0,
+        provider:'',
+    })
     const [form, setForm] = useState<Form>({
         category:'',
         description:'',
@@ -117,6 +142,13 @@ const InsertProduct = ()=>{
         /* photoUrl:'', */
         price:0
     })
+
+
+
+
+    useEffect(()=>{
+        productById()
+    },[])
 
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
@@ -133,7 +165,17 @@ const InsertProduct = ()=>{
     }
 
 
-    const registProduct = (e:FormEvent<HTMLFormElement>):void=>{
+    const productById = ():void=>{
+        axios.get(`${BASE_URL}/product/${product}`, {
+            headers: { Authorization: localStorage.getItem('token') }
+        }).then(res => setItem(res.data)).catch(e=>{
+            console.error(e.response.data)
+        })
+
+    }
+
+
+    const updateProduct = (e:FormEvent<HTMLFormElement>, id:string):void=>{
         e.preventDefault()
         
         
@@ -144,7 +186,7 @@ const InsertProduct = ()=>{
             price: form.price
         }
 
-        axios.post(`${BASE_URL}/products`, body, {
+        axios.patch(`${BASE_URL}/product/${id}`, body, {
             headers: { Authorization: localStorage.getItem('token') }
         }).then(res => alert(res.data)).catch(e=>{
             console.error(e.response.data)
@@ -165,7 +207,13 @@ const InsertProduct = ()=>{
 
     return(
         <Container>
-            <form onSubmit={registProduct} >
+            <form onSubmit={(e)=> updateProduct(e, product)} >
+                <div className="product-content">
+                    <b>Categoria:</b> {item.category} <br />
+                    <b>Descrição:</b> {item.description} <br />
+                    <b>Nome:</b> {item.name} <br />
+                    <b>Prço:</b> R$ {item.price} <br />
+                </div>
                 <input
                     type="text"
                     className="form-input"
@@ -219,4 +267,4 @@ const InsertProduct = ()=>{
     )
 }
 
-export default InsertProduct
+export default UpdateProduct
