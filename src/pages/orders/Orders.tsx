@@ -55,7 +55,7 @@ const Orders = ()=>{
         }
         axios.get(`${BASE_URL}/restaurant`, headers).then(res=>{
             setRestaurant(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.error(e.response.data))
     }
 
     const allOrders = ()=>{
@@ -63,9 +63,9 @@ const Orders = ()=>{
             headers: { Authorization: localStorage.getItem('token') } 
         }).then(res=>{
             setOrders(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.error(e.response.data))
     }
-console.log(orders)
+
     const removeOrder = (order:Order)=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
@@ -148,7 +148,7 @@ console.log(orders)
                                         <b>Quantidade:</b> {order.quantity}<br/>
                                         <b>Total:</b> R$ {order.total}<br/>
                                         <b>Endereço:</b> {order.address}<br/>
-                                        <b>Falar com:</b> <br/>
+                                        {/* <b>Falar com:</b> <br/> */}
                                         <b>Situação:</b> {order.state === 'REQUESTED' ? 'Para entregar' : 'Finalizado'}<br />
                                         {
                                             order.state === 'FINISHED' ? (

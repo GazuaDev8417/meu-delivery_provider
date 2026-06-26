@@ -59,6 +59,32 @@ const ClientData = ()=>{
             setOrders(res.data)
         }).catch(e => alert(e.response.data))
     }
+
+
+    const endOrders = (id:string)=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        axios.patch(`${BASE_URL}/finish_order/${id}`, {}, headers)
+            .then(() =>{
+                orderHistory()
+            }
+        ).catch(e => console.error(e.response.data))
+    }
+
+
+    const backToRequested = (id:string)=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        axios.patch(`${BASE_URL}/return_order/${id}`, {}, headers)
+            .then(() =>{
+                orderHistory()
+            }
+        ).catch(e => console.error(e.response.data))
+    }
     
     
 
@@ -104,7 +130,12 @@ const ClientData = ()=>{
                             <b>Pedido feito em:</b> {order.moment} <br/>
                             <b>Quantidade:</b> {order.quantity}<br/>
                             <b>Total:</b> R$ {Number(order.total).toFixed(2)}<br/>
-                            <b>Status:</b> {order.state === 'FINISHED' ? 'Finalizado' : 'Para entrega'} 
+                            <b>Status:</b> {order.state === 'FINISHED' ? 'Finalizado' : 'Para entrega'} <br />
+                            <div style={{ textAlign:'center' }}>
+                                {order.state === 'REQUESTED' ? (
+                                    <button onClick={()=> endOrders(order.id)}>Concluir</button>
+                                ) : <button onClick={()=> backToRequested(order.id)}>Voltar</button>}
+                            </div>
                         </div>
                     </div>
                 ))}
