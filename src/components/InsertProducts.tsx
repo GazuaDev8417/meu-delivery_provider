@@ -147,7 +147,7 @@ const InsertProduct = ()=>{
         axios.post(`${BASE_URL}/products`, body, {
             headers: { Authorization: localStorage.getItem('token') }
         }).then(res => alert(res.data)).catch(e=>{
-            console.error(e.response.data)
+            alert(e.response.data)
         })
 
     }

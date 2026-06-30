@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../constants/url'
 import styled from 'styled-components'
-import { Products } from '../types/types'
 
 
 
@@ -41,13 +40,6 @@ const Container = styled.div`
         align-items: center;
         gap: 10px;
         border: 1px solid gray;
-        border-radius: 5px;
-    }
-
-    .product-content{
-        border: 1px solid;
-        padding: 10px;
-        margin-bottom: 5px;
         border-radius: 5px;
     }
 
@@ -126,15 +118,6 @@ interface ProductId{
 
 
 const UpdateProduct = ({ product }:ProductId)=>{
-    const [item, setItem] = useState<Products>({
-        category:'',
-        description:'',
-        id:'',
-        name:'',
-        photoUrl:'',
-        price:0,
-        provider:'',
-    })
     const [form, setForm] = useState<Form>({
         category:'',
         description:'',
@@ -168,7 +151,12 @@ const UpdateProduct = ({ product }:ProductId)=>{
     const productById = ():void=>{
         axios.get(`${BASE_URL}/product/${product}`, {
             headers: { Authorization: localStorage.getItem('token') }
-        }).then(res => setItem(res.data)).catch(e=>{
+        }).then(res => setForm({
+            category: res.data.category,
+            description: res.data.description,
+            name: res.data.name,
+            price: res.data.price
+        })).catch(e=>{
             console.error(e.response.data)
         })
 
@@ -208,12 +196,6 @@ const UpdateProduct = ({ product }:ProductId)=>{
     return(
         <Container>
             <form onSubmit={(e)=> updateProduct(e, product)} >
-                <div className="product-content">
-                    <b>Categoria:</b> {item.category} <br />
-                    <b>Descrição:</b> {item.description} <br />
-                    <b>Nome:</b> {item.name} <br />
-                    <b>Prço:</b> R$ {item.price} <br />
-                </div>
                 <input
                     type="text"
                     className="form-input"

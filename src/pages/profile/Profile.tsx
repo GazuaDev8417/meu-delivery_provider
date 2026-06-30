@@ -41,8 +41,6 @@ const Profile:FC = ()=>{
         phone:'',
     })
 
-console.log(menu)
-
     useEffect(()=>{
         const token = localStorage.getItem('token')
         
@@ -71,9 +69,9 @@ console.log(menu)
             }).then(res=>{
                 setProducts(res.data)
             }).catch(e=>{
-                alert(e.response.data)
+                console.error(e.response.data)
             })
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.error(e.response.data))
     }
      
 
@@ -105,7 +103,7 @@ console.log(menu)
     
             axios.delete(`${BASE_URL}/product/${product.id}`, headers).then(()=>{
                 restaurantByToken()
-            }).catch(e => alert(e.response.data))
+            }).catch(e => console.error(e.response.data))
         }
     }
 

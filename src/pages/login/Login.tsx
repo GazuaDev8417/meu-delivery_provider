@@ -2,7 +2,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
-import { /* Link, */ useNavigate /* useLocation */ } from "react-router-dom"
+import { Link, useNavigate /* useLocation */ } from "react-router-dom"
 import { Container } from "./styled"
 //import { Restaurant } from "../../types/types"
 
@@ -132,9 +132,9 @@ const Login:FC = ()=>{
                     <button className="login-button" type="submit">Entrar</button>
                 </div>
             </form>
-            {/* <p>
-                Não possui cadastro? clique <Link to='/meu-delivery/signup'> aqui</Link>
-            </p> */}
+            <p>
+                Não possui cadastro? clique <Link to='/signup'> aqui</Link>
+            </p>
         </Container>
     )
 }

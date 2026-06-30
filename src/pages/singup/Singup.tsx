@@ -8,29 +8,28 @@ import { Container } from "./styled"
 
 
 interface FormData{
-    name:string
     address:string
-    description:string
+    phone:string
+    category:string
     logourl:string
-    cnpj:string
+    name:string
     password:string
-    confirmPass:string
+    email:string
 }
 
 
 const Signup:FC = ()=>{
     const navigate = useNavigate()
-    const [showPass, setShowPass] = useState<boolean>(false)
     const [showPass2, setShowPass2] = useState<boolean>(false)
     const [showAlert, setShowAlert] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
-        name:'',
         address:'',
-        description:'',
+        phone:'',
+        category:'',
         logourl:'',
-        cnpj:'',
+        name:'',
         password:'',
-        confirmPass:''
+        email:''
     })
 
 
@@ -47,36 +46,40 @@ const Signup:FC = ()=>{
         const { name, value } = e.target
         let newValue = value
 
-        if(name === 'cnpj'){
+        if(name === 'phone'){
+            newValue = value.replace(/\D/g, "")
+        }
+
+        /* if(name === 'cnpj'){
             newValue = value.replace(/\D/g, ""); // Remove non-numeric characters
             newValue = newValue.replace(/^(\d{2})(\d)/, "$1.$2"); // Add the first dot
             newValue = newValue.replace(/^(\d{2}\.\d{3})(\d)/, "$1.$2"); // Add the second dot
             newValue = newValue.replace(/^(\d{2}\.\d{3}\.\d{3})(\d)/, "$1/$2"); // Add the slash
             newValue = newValue.replace(/^(\d{2}\.\d{3}\.\d{3}\/\d{3})(\d)/, "$1.$2")
-        }
+        } */
 
         setForm({ ...form, [name]: newValue })
     }
 
 
-    const launchAlert = ()=>{
+    /* const launchAlert = ()=>{
         if(!showAlert){
             alert('Se o resultado da busca pelo seu CNPJ não retornar um nome fantasia este será posto no lugar.')
             setShowAlert(true)
         }
-    }
+    } */
 
     const signup = (e:FormEvent<HTMLFormElement>):void=>{
         e.preventDefault()
 
         const body = {
-            name: form.name,
             address: form.address,
-            description: form.description,
+            phone: form.phone,
+            category: form.category,
             logourl: form.logourl,
-            cnpj: form.cnpj.replace(/\D/g, ""),
+            name: form.name,
             password: form.password,
-            confirmPass: form.confirmPass
+            email: form.email
         }
         axios.post(`${BASE_URL}/signup_restaurant`, body).then(res=>{
             localStorage.setItem('token',res.data)
@@ -90,13 +93,13 @@ const Signup:FC = ()=>{
 
     const clearForm = ()=>{
         setForm({
-            name:'',
             address:'',
-            description:'',
+            phone:'',
+            category:'',
             logourl:'',
-            cnpj:'',
+            name:'',
             password:'',
-            confirmPass:''
+            email:''
         })
     }
 
@@ -113,7 +116,6 @@ const Signup:FC = ()=>{
                     value={form.name}
                     onChange={onChange}
                     placeholder="Nome do estabelecimento" 
-                    onFocus={launchAlert}
                     required/>
                 <input
                     type="text"
@@ -126,10 +128,28 @@ const Signup:FC = ()=>{
                 <input
                     type="text"
                     className="form-input"
-                    name="description"
-                    value={form.description}
+                    name="phone"
+                    value={form.phone}
+                    inputMode="numeric"
+                    maxLength={11}
                     onChange={onChange}
-                    placeholder="Descrição" 
+                    placeholder="Telefone"
+                    required/>
+                <input
+                    type="text"
+                    className="form-input"
+                    name="email"
+                    value={form.email}
+                    onChange={onChange}
+                    placeholder="E-mail"
+                    required/>
+                <input
+                    type="text"
+                    className="form-input"
+                    name="category"
+                    value={form.category}
+                    onChange={onChange}
+                    placeholder="Categoria" 
                     required/>
                 <input
                     type="text"
@@ -137,37 +157,14 @@ const Signup:FC = ()=>{
                     name="logourl"
                     value={form.logourl}
                     onChange={onChange}
-                    placeholder="URL da foto" 
-                    required/>
+                    placeholder="URL da foto"/>
                 <input
-                    type="text"
-                    className="form-input"
-                    name="cnpj"
-                    maxLength={18}
-                    value={form.cnpj}
-                    onChange={onChange}
-                    placeholder="CNPJ" 
-                    required/>
-                <input
-                    type={showPass ? 'text' : 'password'}
+                    type={showPass2 ? 'text' : 'password'}
                     className="form-input"
                     name="password"
                     value={form.password}
                     onChange={onChange} 
                     placeholder="Sua senha(mínimo de 6 caractéres)"
-                    required/>
-                {
-                    !showPass ? (
-                        <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
-                    ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
-                }
-                <input
-                    type={showPass2 ? 'text' : 'password'}
-                    className="form-input"
-                    name="confirmPass"
-                    value={form.confirmPass}
-                    onChange={onChange} 
-                    placeholder="Confirme sua senha"
                     required/>
                 {
                     !showPass2 ? (

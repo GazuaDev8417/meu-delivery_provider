@@ -104,8 +104,8 @@ export const Container = styled.div`
     }
 
     .product-image{
-        /* width: 100px;
-        height: 130px; */	
+        width: 100px;
+        height: 130px;	
         border-radius: 10px;
         /* box-shadow: 2px 2px 4px; */
     }
