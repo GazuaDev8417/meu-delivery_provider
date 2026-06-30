@@ -255,7 +255,7 @@ console.log(id)
                     required/>
                 <div className="btn-container">
                     <button type='reset' onClick={clear} >Limpar</button>
-                    <button>Registrar</button>
+                    <button>Atualizar</button>
                 </div>
             </form>
         </Container>
