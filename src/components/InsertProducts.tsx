@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../constants/url'
 import styled from 'styled-components'
@@ -99,6 +99,8 @@ const Container = styled.div`
 
 
 
+
+
 interface Form{
     category:string
     description:string
@@ -108,8 +110,14 @@ interface Form{
 }
 
 
+type Screen = 'list' | 'insert' | 'update'
 
-const InsertProduct = ()=>{
+type InsertProductProps = {
+    setScreen: React.Dispatch<React.SetStateAction<Screen>>
+}
+
+
+const InsertProduct:React.FC<InsertProductProps> = ({ setScreen })=>{
     const [form, setForm] = useState<Form>({
         category:'',
         description:'',
@@ -118,6 +126,8 @@ const InsertProduct = ()=>{
         price:0
     })
 
+
+    
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
@@ -146,7 +156,9 @@ const InsertProduct = ()=>{
 
         axios.post(`${BASE_URL}/products`, body, {
             headers: { Authorization: localStorage.getItem('token') }
-        }).then(res => alert(res.data)).catch(e=>{
+        }).then(() =>{
+            setScreen('list')
+        }).catch(e=>{
             alert(e.response.data)
         })
 

@@ -115,9 +115,15 @@ interface ProductId{
     product:string
 }
 
+type Screen = 'list' | 'insert' | 'update'
+
+interface UpdateProductProps extends ProductId {
+    product: string
+    setScreen: React.Dispatch<React.SetStateAction<Screen>>
+}
 
 
-const UpdateProduct = ({ product }:ProductId)=>{
+const UpdateProduct:React.FC<UpdateProductProps> = ({ product, setScreen })=>{
     const [form, setForm] = useState<Form>({
         category:'',
         description:'',
@@ -173,12 +179,19 @@ const UpdateProduct = ({ product }:ProductId)=>{
             name: form.name,
             price: form.price
         }
-
+console.log(body)
+console.log(id)
         axios.patch(`${BASE_URL}/product/${id}`, body, {
             headers: { Authorization: localStorage.getItem('token') }
-        }).then(res => alert(res.data)).catch(e=>{
-            console.error(e.response.data)
-        })
+        }).then(() => setScreen('list')).catch(error => {
+            if (axios.isAxiosError(error)) {
+                console.log(error.response?.data);
+                console.log(error.response?.status);
+                console.log(error.message);
+            } else {
+                console.log(error);
+            }
+        });
 
     }
 

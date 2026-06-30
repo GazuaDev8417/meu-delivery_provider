@@ -233,11 +233,11 @@ const Profile:FC = ()=>{
                     ))}
 
                     {screen === 'insert' && (
-                        <InsertProduct/>
+                        <InsertProduct setScreen={setScreen} />
                     )}
 
                     {screen === 'update' && selectedProduct && (
-                        <UpdateProduct product={selectedProduct} />
+                        <UpdateProduct product={selectedProduct} setScreen={setScreen} />
                     )}
                 </div>
             </div>
