@@ -82,15 +82,19 @@ const Profile:FC = ()=>{
 
     const groupedByCategory = (products:Products[]):GroupedProducts[]=>{
         const grouped = products.reduce((acc, product)=>{
-            if(!acc[product.category]){
-                acc[product.category] = { category: product.category, items: []}
+            const categoryKey = product.category.trim()
+            
+            if(!acc[categoryKey]){
+                acc[categoryKey] = { category: categoryKey, items: []}
             }
-            acc[product.category].items.push(product)
+            acc[categoryKey].items.push(product)
             return acc
         }, {} as Record<string, GroupedProducts>)
 
         return Object.values(grouped)
     }
+
+    const groupedProducts = groupedByCategory(products)
 
 
     const deleteProduct = (product:Products)=>{
@@ -107,8 +111,7 @@ const Profile:FC = ()=>{
         }
     }
 
-
-    const logout = ()=>{
+     const logout = ()=>{
         const decide = window.confirm('Tem certeza que deseja deslogar?')
 
         if(decide){
@@ -116,8 +119,6 @@ const Profile:FC = ()=>{
             navigate('/')
         }
     }
-
-    const groupedProducts = groupedByCategory(products)
 
     const handleInputSearch = (e:ChangeEvent<HTMLInputElement>)=>{
         if(openCategory === null){
@@ -166,28 +167,30 @@ const Profile:FC = ()=>{
                         <IoMdCloseCircle title="Voltar" className="icon" onClick={() => setScreen('list')} />
                     )}
                 </div>
-                {screen === 'list' && (
-                    <>
-                        {/* Barra fixa de categorias */}
-                        <div className="categories-bar" title="Clique para ver os produtos">
-                            {groupedProducts.map(group => (
-                            <h3 
-                                key={group.category} 
-                                onClick={() => setOpenCategory(group.category)}
-                                style={{
-                                    color: openCategory === group.category ? "red" : "black"}}>
-                                {group.category}
-                            </h3>
-                            ))}
-                        </div>
-                        {/* BUSCA POR PRODUTO */}
-                        <input 
-                            style={{margin:10, width:'50%'}}
-                            type="text" 
-                            onChange={handleInputSearch}
-                            placeholder="Buscar produto"/>
+                
+                {screen === 'list' && (  
+                    <>                  
+                    {/* Barra fixa de categorias */}
+                    <div className="categories-bar" title="Clique para ver os produtos">
+                        {groupedProducts.map(group => (
+                        <h3 
+                            key={group.category} 
+                            onClick={() => setOpenCategory(group.category)}
+                            style={{
+                                color: openCategory === group.category ? "red" : "black"}}>
+                            {group.category}
+                        </h3>
+                        ))}
+                    </div>
+                    {/* BUSCA POR PRODUTO */}
+                    <input 
+                        style={{margin:10, width:'50%'}}
+                        type="text" 
+                        onChange={handleInputSearch}
+                        placeholder="Buscar produto"/>
                     </>
                 )}
+                
                 {/* Renderizar somente a categoria aberta */}
                 <div className="products-container" ref={productsRef}>
                     {screen === 'list' && groupedProducts.map(group => (

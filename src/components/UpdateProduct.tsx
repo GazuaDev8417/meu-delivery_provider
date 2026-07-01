@@ -110,7 +110,7 @@ interface Form{
     /* photoUrl:File | string, */
     price:number
 }
-
+        
 interface ProductId{
     product:string
 }

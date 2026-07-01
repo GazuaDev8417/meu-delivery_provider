@@ -67,6 +67,7 @@ export const Container = styled.div`
     .categories-bar {
         display: flex;
         gap: 1rem;
+        max-width: 500px;
         overflow-x: auto;
         padding: 0.5rem 0;
         border-bottom: 1px solid #ddd;
